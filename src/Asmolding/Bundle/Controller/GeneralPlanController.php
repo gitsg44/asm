@@ -18,6 +18,7 @@ use Html2Pdf_Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Description of GeneralPlanController
