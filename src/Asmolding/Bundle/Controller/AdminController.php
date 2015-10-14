@@ -60,7 +60,7 @@ class AdminController extends Controller{
         if($form->isValid()){
             
             if ($form->has('modifier')) {
-                $this->editProfile($id, $company, $form);
+                $this->editProfileAction($id, $company, $form);
             }
             
             //Retour vers la vue profil
@@ -74,7 +74,7 @@ class AdminController extends Controller{
             return $this->render($template,array('form'=>$formView,'contact'=>$contact));
     }
     
-    public function editProfile($id, $company, $form){
+    public function editProfileAction($id, $company, $form){
     
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Contact');

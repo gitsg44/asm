@@ -153,7 +153,7 @@ class GeneralPlanController extends Controller{
         $prevDay = $form->get('pday')->getData();
         $prevYear = $form->get('pyear')->getData();
         if($prevWeek && $prevDay && $prevYear){
-            $previsionnel = new \DateTime($this->findDate($prevWeek, $prevDay, $prevYear));       
+            $previsionnel = new \DateTime($this->findDateAction($prevWeek, $prevDay, $prevYear));       
         }else {
             $previsionnel = null;
         }
@@ -162,7 +162,7 @@ class GeneralPlanController extends Controller{
         $realDay = $form->get('rday')->getData();
         $realYear = $form->get('ryear')->getData();
         if($realWeek && $realDay && $realYear){
-            $reel = new \DateTime($this->findDate($realWeek, $realDay, $realYear));
+            $reel = new \DateTime($this->findDateAction($realWeek, $realDay, $realYear));
         }else {
             $reel = null;
         }
@@ -285,14 +285,14 @@ class GeneralPlanController extends Controller{
             $prevWeek = $form->get('pweek')->getData();    
             $prevDay = $form->get('pday')->getData();
             $prevYear = $form->get('pyear')->getData();
-            $previsionnel = new \DateTime($this->findDate($prevWeek, $prevDay, $prevYear));
+            $previsionnel = new \DateTime($this->findDateAction($prevWeek, $prevDay, $prevYear));
             $generalPlan->setPrevisionnel($previsionnel);
         }
         else{
             $realWeek = $form->get('rweek')->getData();    
             $realDay = $form->get('rday')->getData();
             $realYear = $form->get('ryear')->getData();
-            $reel = new \DateTime($this->findDate($realWeek, $realDay, $realYear));
+            $reel = new \DateTime($this->findDateAction($realWeek, $realDay, $realYear));
             $generalPlan->setReel($reel);
         }
         
@@ -344,10 +344,10 @@ class GeneralPlanController extends Controller{
            
              if ($form->has('ajouter')) {
                 //Appel de la méthode d'ajout
-                $this->addMilestone($form);
+                $this->addMilestoneAction($form);
             } else if ($form->has('modifier')) {
                 // Appel de la méthode de modification
-                $this->editMilestone($id, $form);
+                $this->editMilestoneAction($id, $form);
             }
                 
             
@@ -363,7 +363,7 @@ class GeneralPlanController extends Controller{
             return $this->render($template,array('form'=>$formView,'milestone'=>$milestone));  
     }
     
-    public function addMilestone($form){
+    public function addMilestoneAction($form){
         
         $em = $this->getDoctrine()->getManager();
         $milestone = new Milestone();
@@ -382,7 +382,7 @@ class GeneralPlanController extends Controller{
         $em->flush();
     }
     
-    public function editMilestone($id, $form){
+    public function editMilestoneAction($id, $form){
         
         $em = $this->getDoctrine()->getManager();
         
@@ -477,7 +477,7 @@ class GeneralPlanController extends Controller{
     
     // UTIL
     
-    function findDate($semaine, $jour, $annee)
+    function findDateActionAction($semaine, $jour, $annee)
     {
         
         if(strftime("%V",mktime(0,0,0,01,01,$annee)) == 1 || $semaine == 1 && strftime("%V",mktime(0,0,0,01,01,$annee)) != 1 && date("L", mktime(0,0,0,1,1,$annee+1))== 0){
