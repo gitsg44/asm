@@ -10,7 +10,7 @@ namespace Asmolding\Bundle\Controller;
 
 use Asmolding\Bundle\Entity\ContactRepository;
 use Asmolding\Bundle\Entity\ProjetRelContact;
-use Asmolding\Bundle\Form\FormPRCType;
+use Asmolding\Bundle\Form\Type\FormPRCType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;

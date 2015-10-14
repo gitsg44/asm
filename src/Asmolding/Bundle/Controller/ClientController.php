@@ -9,8 +9,8 @@
 namespace Asmolding\Bundle\Controller;
 
 use Asmolding\Bundle\Entity\Contact;
-use Asmolding\Bundle\Form\ChangePasswordType;
-use Asmolding\Bundle\Form\FormContactType;
+use Asmolding\Bundle\Form\Type\ChangePasswordType;
+use Asmolding\Bundle\Form\Type\FormContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;

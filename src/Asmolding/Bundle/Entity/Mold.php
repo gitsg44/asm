@@ -11,7 +11,6 @@ namespace Asmolding\Bundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * Description of Mold
@@ -136,7 +135,7 @@ class Mold {
      * 
      * @ORM\Column(name="isArchived", type="boolean")
      */
-    private $isArchived = false;
+    private $archived = false;
     
     // Clés étrangères (FK)
     
@@ -244,8 +243,8 @@ class Mold {
         return $this->solution;
     }
     
-    function getIsArchived() {
-        return $this->isArchived;
+    function getArchived() {
+        return $this->archived;
     }
 
     
@@ -329,8 +328,8 @@ class Mold {
         $this->solution = $solution;
     }
     
-    function setIsArchived($isArchived) {
-        $this->isArchived = $isArchived;
+    function setArchived($archived) {
+        $this->archived = $archived;
     }
 
         

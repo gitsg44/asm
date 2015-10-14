@@ -11,8 +11,8 @@ namespace Asmolding\Bundle\Controller;
 use Asmolding\Bundle\Entity\GeneralPlan;
 use Asmolding\Bundle\Entity\Milestone;
 use Asmolding\Bundle\Entity\MilestoneRepository;
-use Asmolding\Bundle\Form\FormGeneralPlanType;
-use Asmolding\Bundle\Form\FormMilestoneType;
+use Asmolding\Bundle\Form\Type\FormGeneralPlanType;
+use Asmolding\Bundle\Form\Type\FormMilestoneType;
 use DateTime;
 use Html2Pdf_Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -157,7 +157,7 @@ class GeneralPlanController extends Controller{
         $prevDay = $form->get('pday')->getData();
         $prevYear = $form->get('pyear')->getData();
         if($prevWeek && $prevDay && $prevYear){
-            $previsionnel = new \DateTime($this->trouver_date($prevWeek, $prevDay, $prevYear));       
+            $previsionnel = new \DateTime($this->findDate($prevWeek, $prevDay, $prevYear));       
         }else {
             $previsionnel = null;
         }
@@ -166,7 +166,7 @@ class GeneralPlanController extends Controller{
         $realDay = $form->get('rday')->getData();
         $realYear = $form->get('ryear')->getData();
         if($realWeek && $realDay && $realYear){
-            $reel = new \DateTime($this->trouver_date($realWeek, $realDay, $realYear));
+            $reel = new \DateTime($this->findDate($realWeek, $realDay, $realYear));
         }else {
             $reel = null;
         }
@@ -289,7 +289,7 @@ class GeneralPlanController extends Controller{
             $prevWeek = $form->get('pweek')->getData();    
             $prevDay = $form->get('pday')->getData();
             $prevYear = $form->get('pyear')->getData();
-            $previsionnel = new \DateTime($this->trouver_date($prevWeek, $prevDay, $prevYear));
+            $previsionnel = new \DateTime($this->findDate($prevWeek, $prevDay, $prevYear));
             //$previsionnel = $prevWeek . "." . $prevDay . "." . $prevYear;
             $generalPlan->setPrevisionnel($previsionnel);
         }
@@ -297,7 +297,7 @@ class GeneralPlanController extends Controller{
             $realWeek = $form->get('rweek')->getData();    
             $realDay = $form->get('rday')->getData();
             $realYear = $form->get('ryear')->getData();
-            $reel = new \DateTime($this->trouver_date($realWeek, $realDay, $realYear));
+            $reel = new \DateTime($this->findDate($realWeek, $realDay, $realYear));
             //$reel = $realWeek . "." . $realDay . "." . $realYear;
             $generalPlan->setReel($reel);
         }
@@ -488,7 +488,7 @@ class GeneralPlanController extends Controller{
     
     // UTIL
     
-    function trouver_date($semaine, $jour, $annee)
+    function findDate($semaine, $jour, $annee)
     {
         
         if(strftime("%V",mktime(0,0,0,01,01,$annee)) == 1 || $semaine == 1 && strftime("%V",mktime(0,0,0,01,01,$annee)) != 1 && date("L", mktime(0,0,0,1,1,$annee+1))== 0){

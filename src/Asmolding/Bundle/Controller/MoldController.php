@@ -3,7 +3,7 @@
 namespace Asmolding\Bundle\Controller;
 
 use Asmolding\Bundle\Entity\Mold;
-use Asmolding\Bundle\Form\FormMoldType;
+use Asmolding\Bundle\Form\Type\FormMoldType;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

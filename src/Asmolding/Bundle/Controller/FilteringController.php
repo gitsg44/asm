@@ -8,17 +8,9 @@
 
 namespace Asmolding\Bundle\Controller;
 
-use Asmolding\Bundle\Entity\Company;
-use Asmolding\Bundle\Entity\Contact;
-use Asmolding\Bundle\Entity\ContactRepository;
-use Asmolding\Bundle\Entity\Mold;
-use Asmolding\Bundle\Entity\MoldRepository;
-use Asmolding\Bundle\Entity\Project;
-use Asmolding\Bundle\Form\FormFilterMoldPlanType;
-use Asmolding\Bundle\Form\FormFilterPlanType;
-use Asmolding\Bundle\Form\FormFilterProjectPlanType;
-use Asmolding\Bundle\Form\FormSearchType;
-use Doctrine\ORM\EntityRepository;
+
+use Asmolding\Bundle\Form\Type\FormFilterMoldPlanType;
+use Asmolding\Bundle\Form\Type\FormFilterProjectPlanType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
