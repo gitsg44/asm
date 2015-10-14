@@ -211,7 +211,7 @@ class Contact implements UserInterface{
         else if ($this->cp && $this->company->getLevel()){
             $roles[] = 'ROLE_CHEFPROJET';
         }
-        else if (!$this->level && !$this->company->getLevel() && $this->company->getReglevel() == true){
+        else if (!$this->level && !$this->company->getLevel() && $this->company->getReglevel() === true){
             $roles[] = 'ROLE_PARTENAIRE';
         }
         else{

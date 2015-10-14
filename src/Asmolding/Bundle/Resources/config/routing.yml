@@ -22,33 +22,33 @@ asmolding_admin_homepage:
     # Gestion des CONTACTS
 asmolding_admin_listContacts:
     path: /admin/utilisateurs
-    defaults: { _controller: AsmoldingBundle:Admin:listContacts}
+    defaults: { _controller: AsmoldingBundle:Contact:listContacts}
 asmolding_admin_searchContacts:
     path: /admin/utilisateurs/recherche
-    defaults: { _controller: AsmoldingBundle:Admin:searchContacts}
+    defaults: { _controller: AsmoldingBundle:Contact:searchContacts}
 asmolding_admin_listFoundContactsByName:
     path: /admin/utilisateurs/rechercheName/{name}
-    defaults: { _controller: AsmoldingBundle:Admin:listFoundContactsByName}
+    defaults: { _controller: AsmoldingBundle:Contact:listFoundContactsByName}
 asmolding_admin_listFoundContactsByCompany:
     path: /admin/utilisateurs/rechercheCompany/{companyName}
-    defaults: { _controller: AsmoldingBundle:Admin:listFoundContactsByCompany}
+    defaults: { _controller: AsmoldingBundle:Contact:listFoundContactsByCompany}
 asmolding_admin_manageContacts:
     path: /admin/utilisateurs/{mode}/{id}/{search}
-    defaults: {_controller: AsmoldingBundle:Admin:manageContacts, search: "" }
+    defaults: {_controller: AsmoldingBundle:Contact:manageContacts, search: "" }
     
     # Gestion des CLIENTS
 asmolding_admin_listCompanies:
     path: /admin/clients
-    defaults: { _controller: AsmoldingBundle:Admin:listCompanies}
+    defaults: { _controller: AsmoldingBundle:Company:listCompanies}
 asmolding_admin_searchCompanies:
     path: /admin/clients/recherche
-    defaults: { _controller: AsmoldingBundle:Admin:searchCompanies}
+    defaults: { _controller: AsmoldingBundle:Company:searchCompanies}
 asmolding_admin_listFoundCompanies:
     path: /admin/clients/recherche/{name}
-    defaults: { _controller: AsmoldingBundle:Admin:listFoundCompanies}
+    defaults: { _controller: AsmoldingBundle:Company:listFoundCompanies}
 asmolding_admin_manageCompanies:
     path: /admin/clients/{mode}/{id}
-    defaults: {_controller: AsmoldingBundle:Admin:manageCompanies }
+    defaults: {_controller: AsmoldingBundle:Company:manageCompanies }
 asmolding_admin_searchCompaniesAjax:
     path: /admin/clients/rechercher
     defaults: {_controller: AsmoldingBundle:Filtering:searchCompaniesAjax}

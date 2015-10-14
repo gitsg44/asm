@@ -206,13 +206,13 @@ class GeneralPlanController extends Controller{
         $prev = $generalPlan->getPrevisionnel();
         $real = $generalPlan->getReel();
         
-        if($prev != null){
+        if($prev !== null){
             $prevDate = $prev->format('W.N.o');
         }
         else{
             $prevDate = '1.1' . '.' . $todayYear;
         }
-        if($real != null){
+        if($real !== null){
             $realDate = $real->format('W.N.o');
         }
          else{
