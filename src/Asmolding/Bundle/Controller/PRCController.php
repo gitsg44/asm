@@ -67,10 +67,10 @@ class PRCController extends Controller{
             
             if ($form->has('ajouter')) {
                 //Appel de la méthode d'ajout
-                $this->addPRC($project, $form);
+                $this->addPRCAction($project, $form);
             } else if ($form->has('modifier')) {
                 // appel de la méthode de modification
-                $this->editPRC($id, $project, $form);
+                $this->editPRCAction($id, $project, $form);
             } 
             
             //Retour vers la vue liste des contacts du projet
@@ -80,7 +80,7 @@ class PRCController extends Controller{
         
         if($mode == 'supprimer'){
             
-            $this->deletePRC($id);
+            $this->deletePRCAction($id);
             
             //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listPRC', array('projectId' => $projectId)));
@@ -94,7 +94,7 @@ class PRCController extends Controller{
         
     }
     
-       public function addPRC($project, $form){
+       public function addPRCAction($project, $form){
 
         $em = $this->getDoctrine()->getManager();
         
@@ -120,7 +120,7 @@ class PRCController extends Controller{
         }  
     }
    
-    public function editPRC($id, $project, $form) {
+    public function editPRCAction($id, $project, $form) {
         
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:ProjetRelContact');
@@ -139,7 +139,7 @@ class PRCController extends Controller{
     }
     
     // Suppression d'un contact rattaché à un projet
-    public function deletePRC($id) {
+    public function deletePRCAction($id) {
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:ProjetRelContact');

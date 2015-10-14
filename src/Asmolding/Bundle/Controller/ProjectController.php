@@ -88,12 +88,12 @@ class ProjectController extends Controller{
             
             if ($form->has('ajouter')) {
                 //Appel de la méthode d'ajout
-                $this->addProject($form);
+                $this->addProjectAction($form);
                 // Appel de la méthode de création du patchcode projet
-                $this->createProjectPathCode($form);
+                $this->createProjectPathCodeAction($form);
             } else if ($form->has('modifier')) {
                 // appel de la méthode de modification
-                $this->editProject($id, $form);
+                $this->editProjectAction($id, $form);
                 
             } 
             
@@ -104,7 +104,7 @@ class ProjectController extends Controller{
         
         if($mode == 'supprimer'){
             
-            $this->deleteProject($id);
+            $this->deleteProjectAction($id);
             
             //Retour vers la vue liste des projets
             $response = $this->redirect($this->generateUrl('asmolding_admin_listProjects'));
@@ -145,7 +145,7 @@ class ProjectController extends Controller{
          
     }
     
-    public function addProject($form){
+    public function addProjectAction($form){
         
         $em = $this->getDoctrine()->getManager();
         
@@ -168,7 +168,7 @@ class ProjectController extends Controller{
         $em->flush();
     }
    
-    public function editProject($id, $form) {
+    public function editProjectAction($id, $form) {
         
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Project');
@@ -212,7 +212,7 @@ class ProjectController extends Controller{
     }
     
     // Suppression d'un projet
-    public function deleteProject($id) {
+    public function deleteProjectAction($id) {
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Project');
@@ -247,7 +247,7 @@ class ProjectController extends Controller{
     }
     
      // Création du pathcode projet
-    public function createProjectPathCode($form){
+    public function createProjectPathCodeAction($form){
         
         // Création du pathcode (id + 8 premières lettres du nom du projet (sichiffres ==> X)
         

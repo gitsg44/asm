@@ -71,12 +71,12 @@ class MoldController extends Controller {
             
             if ($form->has('ajouter')) {
                 //Appel de la méthode d'ajout
-                $this->addMold($project, $form);
+                $this->addMoldAction($project, $form);
                 // Appel de la méthode de création du patchcode affaire
-                $this->createMoldPathCode($form);
+                $this->createMoldPathCodeAction($form);
             } else if ($form->has('modifier')) {
                 // appel de la méthode de modification
-                $this->editMold($id, $project, $form);
+                $this->editMoldAction($id, $project, $form);
             } 
             
             //Retour vers la vue liste des projets
@@ -86,7 +86,7 @@ class MoldController extends Controller {
         
         if($mode == 'supprimer'){
             
-            $this->deleteMold($id);
+            $this->deleteMoldAction($id);
             
             //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
@@ -95,7 +95,7 @@ class MoldController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $mold = $em->getRepository('AsmoldingBundle:Mold')->find($id);
             
-            $mold->setIsArchived(true);
+            $mold->setArchived(true);
             $em->flush();
             
             //Retour vers la vue liste des affaires
@@ -105,7 +105,7 @@ class MoldController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $mold = $em->getRepository('AsmoldingBundle:Mold')->find($id);
             
-            $mold->setIsArchived(false);
+            $mold->setArchived(false);
             $em->flush();
             
             //Retour vers la vue liste des affaires
@@ -129,7 +129,7 @@ class MoldController extends Controller {
         
         foreach ($molds as $mold){
             
-           $mold->setIsArchived(true);
+           $mold->setArchived(true);
            $em->flush();
         }
         
@@ -148,7 +148,7 @@ class MoldController extends Controller {
         
         foreach ($molds as $mold){
             
-           $mold->setIsArchived(false);
+           $mold->setArchived(false);
            $em->flush();
         }
         
@@ -157,7 +157,7 @@ class MoldController extends Controller {
             return $response;
     }
 
-    public function addMold($project, $form){
+    public function addMoldAction($project, $form){
         
         $em = $this->getDoctrine()->getManager();
        
@@ -184,7 +184,7 @@ class MoldController extends Controller {
         $em->flush();
     }
    
-    public function editMold($id, $project, $form) {
+    public function editMoldAction($id, $project, $form) {
         
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Mold');
@@ -240,7 +240,7 @@ class MoldController extends Controller {
     }
     
     // Suppression d'un projet
-    public function deleteMold($id) {
+    public function deleteMoldAction($id) {
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Mold');
@@ -277,7 +277,7 @@ class MoldController extends Controller {
     }
     
      // Création du pathcode affaire
-    public function createMoldPathCode($form){
+    public function createMoldPathCodeAction($form){
         
         // Création du pathcode (2 derniers chiffres de l'année + id + 8 premières lettres du nom du projet (sichiffres ==> X)
         $em = $this->getDoctrine()->getManager();

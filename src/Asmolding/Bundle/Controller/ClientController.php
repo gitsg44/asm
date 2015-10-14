@@ -56,7 +56,7 @@ class ClientController extends Controller{
         if($form->isValid()){
             
              if ($form->has('modifier')) {
-                $this->editProfile($id, $form);
+                $this->editProfileAction($id, $form);
              }
             
             //Retour vers la vue profil
@@ -70,7 +70,7 @@ class ClientController extends Controller{
             return $this->render($template,array('form'=>$formView,'contact'=>$contact));
     }
     
-    public function editProfile($id, $form){
+    public function editProfileAction($id, $form){
     
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Contact');

@@ -123,7 +123,7 @@ class GeneralPlanController extends Controller{
             
             if ($form->has('valider')) {
                 //Appel de la méthode d'ajout
-                $this->addToGlobalPlan($project, $mold, $form);
+                $this->addGeneralPlanAction($project, $mold, $form);
             }
             
             /*
@@ -142,7 +142,7 @@ class GeneralPlanController extends Controller{
             return $this->render($template,array('form'=>$formView, 'form2'=>$formView2,'generalPlan'=>$generalPlan));  
     }
     
-    public function addToGlobalPlan($project, $mold, $form){
+    public function addGeneralPlanAction($project, $mold, $form){
         
         $em = $this->getDoctrine()->getManager();
         
