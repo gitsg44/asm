@@ -298,12 +298,5 @@ class GeneralPlan {
 
     function setUpdateUser($updateUser) {
         $this->updateUser = $updateUser;
-    }
-
-
-    
-    
-    
-    
-    
+    }    
 }

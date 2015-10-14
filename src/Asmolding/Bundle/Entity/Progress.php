@@ -51,8 +51,4 @@ class Progress {
     function setDay($day) {
         $this->day = $day;
     }
-
-
-
-
 }

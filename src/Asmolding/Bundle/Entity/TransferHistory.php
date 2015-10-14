@@ -232,6 +232,4 @@ class TransferHistory {
     function setComment($comment) {
         $this->comment = $comment;
     }
-
-
 }

@@ -180,8 +180,5 @@ class MPR {
     
     function setMprDetails(MPRDetail $mprDetails) {
         $this->mprDetails = $mprDetails;
-    }
-
-
-    
+    }  
 }

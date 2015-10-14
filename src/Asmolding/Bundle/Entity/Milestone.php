@@ -143,9 +143,5 @@ class Milestone {
     function setGeneralPlans(GeneralPlan $generalPlans) {
         $this->generalPlans = $generalPlans;
     }
-
-
-
-    
-    
+   
 }

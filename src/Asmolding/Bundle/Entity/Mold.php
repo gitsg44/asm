@@ -369,7 +369,4 @@ class Mold {
       // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
       $this->milestones->removeElement($milestone);
     }
-
-
-
 }

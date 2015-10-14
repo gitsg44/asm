@@ -140,30 +140,6 @@ class MoldRepository extends EntityRepository{
         return $qb->getQuery()->getResult();
     }
     
-    /*
-    public function getNotArchivedByUser($user){
-        
-        $qb = $this->createQueryBuilder('m');
-        
-         $qb->join('m.company', 'c')
-            ->join('m.project', 'p')
-            ->join('p.cp', 'cp')
-            ->join('p.projetRelContacts', 'prc')
-            ->addSelect('c')
-            ->addSelect('p')
-            ->addSelect('cp')
-            ->addSelect('prc')
-            ->where('m.isArchived = :bool')
-            ->andWhere('prc.contact = :user')
-            ->setParameter(':bool', 0)
-            ->setParameter(':user', $user)
-            ->addorderBy('c.name', 'ASC')
-            ->addOrderBy('m.name', 'ASC');
-                 
-        return $qb->getQuery()->getResult();
-    }
-    */
-    
     // Récupérer TOUS les moules NON ARCHIVES par utilisateur et par projet
     public function getNotArchivedByUserAndByProject($user, $project){
         

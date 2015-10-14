@@ -351,9 +351,4 @@ class Project {
         $this->image = $image;
         return $this;
     }
-
-
-
-
-
 }

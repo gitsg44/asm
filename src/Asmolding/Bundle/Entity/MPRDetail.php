@@ -127,7 +127,5 @@ class MPRDetail {
     function setDetail2($detail2) {
         $this->detail2 = $detail2;
     }
-
-
-    
+   
 }

@@ -187,5 +187,4 @@ class Image
   function setAlt($alt) {
       $this->alt = $alt;
   }
-
 }

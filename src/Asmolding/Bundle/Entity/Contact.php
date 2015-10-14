@@ -411,6 +411,4 @@ class Contact implements UserInterface{
     }
 
 
-}
-    
-    
+}   
