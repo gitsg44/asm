@@ -731,14 +731,10 @@ class AdminController extends Controller{
       return $this->render($template,array('form'=>$formView));      
     }
     
-    public function sendEmail($contact){
-        
-        //$recipientAddress = $form->get('email')->getData();
+    public function sendEmail($contact){  
        
         $recipientAddress = $contact->getEmail();
-        print_r($recipientAddress);
-        
-        
+          
         $message = Swift_Message::newInstance();
         $cid = $message->embed(Swift_Image::fromPath('../web/images/logo_asm.png'));
 
