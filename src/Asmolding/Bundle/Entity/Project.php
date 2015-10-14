@@ -228,15 +228,6 @@ class Project {
         return $this->planStart;
     }
     
-    /*
-     * Archivage du projet
-     */
-    /*
-    function getIsArchived() {
-        return $this->isArchived;
-    }
-     */
-    
     // Getters FK
     
     function getGeneralPlans() {
@@ -312,14 +303,6 @@ class Project {
     function setPlanStart($planStart) {
         $this->planStart = $planStart;
     }
-    /*
-     * Archivage du projet
-     */
-    /*
-    function setIsArchived($isArchived) {
-        $this->isArchived = $isArchived;
-    }
-    */
 
     // Setter FK
     

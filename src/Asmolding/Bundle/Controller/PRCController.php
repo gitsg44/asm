@@ -75,7 +75,6 @@ class PRCController extends Controller{
             
             //Retour vers la vue liste des contacts du projet
             $response =  $this->redirect($this->generateUrl('asmolding_admin_listPRC', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listPRC', array('projectId' => $projectId));
             return $response;
         }
         
@@ -85,7 +84,6 @@ class PRCController extends Controller{
             
             //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listPRC', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listPRC', array('projectId' => $projectId));
             return $response;
         }
 

@@ -76,7 +76,6 @@ class AdminController extends Controller{
             
             //Retour vers la vue profil
             $response = $this->redirect($this->generateUrl('asmolding_admin_viewProfile', array('id' => $id)));
-                    //$this->forward('AsmoldingBundle:Admin:viewProfile', array('id' => $id));
             return $response; 
         }
         
@@ -169,8 +168,6 @@ class AdminController extends Controller{
             if ($form->has('ajouter')) {
                 //Appel de la méthode d'ajout
                 $this->addContact($form);
-                // Appel de la méthode d'envoi de mail
-                //$this->sendEmail($contact);
             } else if ($form->has('modifier')) {
                 // Appel de la méthode de modification
                 $this->editContact($id, $form);
@@ -178,18 +175,15 @@ class AdminController extends Controller{
             
             //Retour vers la vue liste des utilisateurs
             $response = $this->redirect($this->generateUrl('asmolding_admin_listContacts'));
-                    //$this->forward('AsmoldingBundle:Admin:listUsers');
             return $response; 
         }
         
         if($mode == 'supprimer'){
             
             $this->deleteContact($id);
-            
-            
+
             //Retour vers la vue liste des utilisateurs
             $response = $this->redirect($this->generateUrl('asmolding_admin_listContacts'));
-                    //$this->forward('AsmoldingBundle:Admin:listUsers');
             return $response;
         }
         
@@ -440,11 +434,9 @@ class AdminController extends Controller{
         if($mode == 'supprimer'){
             
             $this->deleteCompany($id);
-            //$this->listUsersAction();
             
             //Retour vers la vue liste 
             $response = $this->redirect($this->generateUrl('asmolding_admin_listCompanies'));
-                    //$this->forward('AsmoldingBundle:Admin:listCompanies');
             return $response;
         }
         
@@ -475,7 +467,6 @@ class AdminController extends Controller{
             
             //Retour vers la vue liste de recherche
             $response = $this->redirect($this->generateUrl('asmolding_admin_listFoundCompanies', array('name' => $name)));
-                    //$this->forward('AsmoldingBundle:Admin:listCompanies');
             return $response;
         } 
         
@@ -722,7 +713,6 @@ class AdminController extends Controller{
           
           //Retour vers la vue profil
           $response = $this->redirect($this->generateUrl('asmolding_admin_viewProfile', array('id' => $id)));
-                  //$this->forward('AsmoldingBundle:Admin:viewProfile', array('id' => $id));
           return $response;
       }
 

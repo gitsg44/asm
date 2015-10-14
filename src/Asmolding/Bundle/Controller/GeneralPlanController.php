@@ -33,10 +33,7 @@ class GeneralPlanController extends Controller{
         
         $controllerFull = strstr($this->getRequest()->get('_controller'), ':', 1) ;
         $pos = strrpos($controllerFull, '\\');
-        $controller = substr(substr($controllerFull, $pos), 1);
-        
-        //$projects = $em->getRepository('AsmoldingBundle:Project')->getAll();
-        
+        $controller = substr(substr($controllerFull, $pos), 1);     
        
         $molds = $em->getRepository('AsmoldingBundle:Mold')->getAllNotArchived();
         
@@ -61,8 +58,6 @@ class GeneralPlanController extends Controller{
         $controllerFull = strstr($this->getRequest()->get('_controller'), ':', 1) ;
         $pos = strrpos($controllerFull, '\\');
         $controller = substr(substr($controllerFull, $pos), 1);
-        
-        //$projects = $em->getRepository('AsmoldingBundle:Project')->getAll();
         
         if($this->get('security.context')->isGranted('ROLE_CHEFPROJET')){
             $cp = $this->getUser();
@@ -291,7 +286,6 @@ class GeneralPlanController extends Controller{
             $prevDay = $form->get('pday')->getData();
             $prevYear = $form->get('pyear')->getData();
             $previsionnel = new \DateTime($this->findDate($prevWeek, $prevDay, $prevYear));
-            //$previsionnel = $prevWeek . "." . $prevDay . "." . $prevYear;
             $generalPlan->setPrevisionnel($previsionnel);
         }
         else{
@@ -299,7 +293,6 @@ class GeneralPlanController extends Controller{
             $realDay = $form->get('rday')->getData();
             $realYear = $form->get('ryear')->getData();
             $reel = new \DateTime($this->findDate($realWeek, $realDay, $realYear));
-            //$reel = $realWeek . "." . $realDay . "." . $realYear;
             $generalPlan->setReel($reel);
         }
         
@@ -311,8 +304,6 @@ class GeneralPlanController extends Controller{
         
         //Retour vers la vue planning général
             $response = $this->redirect($this->generateUrl('asmolding_admin_generalPlan', array('generalPlan' => $generalPlan)));
-                    //$this->forward('AsmoldingBundle:Admin:listProjects');
-            //return null;
             return $response;
         }
 
@@ -482,9 +473,6 @@ class GeneralPlanController extends Controller{
         
         $response = new Response('http://asmolding.local/file/Planning_General_Semaine_'.$numWeek.'_'.$year.'.pdf', 200, array('content-type' => 'application/pdf', 'Pragma' => 'private', 'Cache-control' => 'private, must-revalidate'));
         return $response;
-//        return $this->validateCommande($commande,$request);
-//        $template= 'ExpeditorBundle:Employe:accueilEmploye.html.twig';
-//        return $this->render($template,array('commande'=>$commande)); 
     }
     
     // UTIL

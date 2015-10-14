@@ -61,7 +61,6 @@ class ClientController extends Controller{
             
             //Retour vers la vue profil
             $response = $this->redirect($this->generateUrl('asmolding_client_viewProfile', array('id' => $id)));
-//$this->forward('AsmoldingBundle:Client:viewProfile', array('id' => $id));
             return $response; 
         }
         
@@ -78,7 +77,6 @@ class ClientController extends Controller{
         
         $contact = $repository->find($id);
       
-        //$contact->setCompany($form-get('company')->getData());
         $contact->setFirstname(str_replace(' ', '-', ucwords(str_replace('-',' ', $form->get('firstname')->getData()))));
         $contact->setName(mb_strtoupper($form->get('name')->getData()));
         $contact->setUsername($form->get('username')->getData());
@@ -124,7 +122,6 @@ class ClientController extends Controller{
           
           //Retour vers la vue profil
           $response = $this->redirect($this->generateUrl('asmolding_client_viewProfile', array('id' => $id)));
-                  //$this->forward('AsmoldingBundle:Client:viewProfile', array('id' => $id));
           return $response;
       }
 

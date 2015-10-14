@@ -55,9 +55,6 @@ class AfterLogoutRedirection implements LogoutSuccessHandlerInterface
         if (in_array('ROLE_ADMIN', $rolesTab, true) || in_array('ROLE_CHEFPROJET', $rolesTab, true) || in_array('ROLE_PARTENAIRE', $rolesTab, true) || in_array('ROLE_CLIENT', $rolesTab, true) ){
             $response = new RedirectResponse($this->router->generate('asmolding_login'));
         }
-        // Sinon on redirige vers la homepage
-        //else
-        //    $response = new RedirectResponse($this->router->generate('homepage'));
  
         return $response;
     }

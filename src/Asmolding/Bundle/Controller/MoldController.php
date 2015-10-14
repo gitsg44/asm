@@ -81,18 +81,15 @@ class MoldController extends Controller {
             
             //Retour vers la vue liste des projets
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listMolds', array('projectId' => $projectId));
             return $response;
         }
         
         if($mode == 'supprimer'){
             
             $this->deleteMold($id);
-            //$this->listUsersAction();
             
             //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listMolds', array('projectId' => $projectId));
             return $response;
         } else if($mode == 'archiver'){
             $em = $this->getDoctrine()->getManager();
@@ -103,7 +100,6 @@ class MoldController extends Controller {
             
             //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listMolds', array('projectId' => $projectId));
             return $response;
         } else if($mode == 'restaurer'){
             $em = $this->getDoctrine()->getManager();
@@ -114,7 +110,6 @@ class MoldController extends Controller {
             
             //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listMolds', array('projectId' => $projectId));
             return $response;
         }
         
@@ -140,7 +135,6 @@ class MoldController extends Controller {
         
         //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listMolds', array('projectId' => $projectId));
             return $response;
     }
     
@@ -160,7 +154,6 @@ class MoldController extends Controller {
         
         //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
-                    //$this->forward('AsmoldingBundle:Admin:listMolds', array('projectId' => $projectId));
             return $response;
     }
 
@@ -276,7 +269,7 @@ class MoldController extends Controller {
         $repoProject = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Project');
         
         $project = $repoProject->find($projectId);
-        $molds = $repository->getArchivedByProject($project);//findBy(array('project' => $project));
+        $molds = $repository->getArchivedByProject($project);
         if(!$molds){
             return $this->redirect($this->generateUrl('asmolding_admin_manageMolds', array('projectId' => $projectId, 'id' => 0, 'mode' => 'ajouter')));
         }
@@ -307,7 +300,6 @@ class MoldController extends Controller {
         // Création du pathcode Affaire (2 derniers chiffres de l'année + id + 8 premières lettres du nom du projet)
         $chiffres = array("0","1","2","3","4","5","6","7","8","9");
         $nameWf = ltrim($nameX, '0123456789');
-        //$nameWd = str_replace($chiffres, "X", $nameWf);
         $newName = strtoupper(str_replace($chiffres, 'X', $nameWf));
         $yy = date('y', $dateReg->getTimestamp());
         $chaine = $idMold . substr($newName, 0, 8);

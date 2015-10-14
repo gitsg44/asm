@@ -29,8 +29,6 @@ class FilteringController extends Controller{
         $molds = $em->getRepository('AsmoldingBundle:Mold')->getAll();
         $projects = $em->getRepository('AsmoldingBundle:Project')->getAll();
         
-        //$generalPlan = $em->getRepository('AsmoldingBundle:GlobalPlan')->findOneByMold($mold);
-        
         foreach ($projects as $project){
             //creation du formulaire GeneralPlan
             $form = $this->createForm(new FormFilterProjectPlanType(), $project);  
