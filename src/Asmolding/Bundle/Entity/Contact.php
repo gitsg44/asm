@@ -409,6 +409,4 @@ class Contact implements UserInterface{
     return strtoupper($initiale);
 
     }
-
-
-}   
+} 

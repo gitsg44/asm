@@ -26,10 +26,3 @@ monolog:
 
 assetic:
     use_controller: true
-
-#swiftmailer:
-#  delivery_address:  sebastien.gourmelon@gmail.com
- # transport: gmail
-  #username: sebastien.gourmelon@gmail.com
-  #password: Sg190788
-  
