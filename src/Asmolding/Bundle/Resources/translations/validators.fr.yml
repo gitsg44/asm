@@ -1,0 +1,12 @@
+## YAML Template.
+---
+# Security 
+security: 
+    login: 
+    username: "Nom d'utilisateur :" 
+    password: "Mot de passe :" 
+    remember_me: Se souvenir de moi 
+    submit: Connexion
+    Bad credentials: Pseudo ou mot de passe incorect
+
+This value should not be blank : Ce champ doit être renseigné

@@ -1,0 +1,107 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Planning général{% endblock %}
+{% block stylesheets %}
+    <style>      
+        td{
+            font-size: 12px;
+        }
+        
+        th{
+            font-size: 12px;
+        }
+        
+        
+    </style>
+{% endblock %}
+{% block body %}
+
+    <div class="container_2">
+ 
+        <h2 class="form-signin-heading">Planning pour la semaine {{ numWeek }} - {{ year }}</h2>
+        {% if lastUpdate is not null %}
+            <h5 class="form-signin-heading">Dernière modification faite le {{ lastUpdate.updateTime|date('d/m/Y') }} par {{ lastUpdate.updateUser.nameFirstname}}</h5>
+        {% endif %}
+        
+        <a class="btn btn-success" role="button" href="{{ path('asmolding_admin_listMilestones') }}">
+            <span class="glyphicon glyphicon-plus"></span> Modifier les jalons</a>
+
+        {% if controller == 'GeneralPlanController' %}
+        <a class="btn btn-info" role="button" href="{{ path('asmolding_admin_print2Pdf') }}">
+            <span class="glyphicon glyphicon-print"></span> Imprimer le planning</a>
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Photo</th>
+                    <th>N° OF</th>
+                    <th>CP</th>
+                    <th>Solution</th>
+                    {% for milestone in milestones %}
+                        <th class="center">{{ milestone.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for mold in molds %}
+                    <tr class="center">
+                        <td rowspan="2" class="left">{{ mold.company.name }}</td>
+                        {% if mold.image.webPath is defined %}
+                            <td rowspan="2" class="left" id="photo"><img id="img" src="{{ asset(mold.image.webPath) }}"/></td>
+                        {% else %}
+                            <td rowspan="2" class="left"></td>
+                        {% endif %}
+                            <td rowspan="2" class="left"><a href="{{ path('asmolding_admin_manageGeneralPlan', {'id':mold.id}) }}">{{ mold.project.num }} {{ mold.num }}</a></td>
+                            <td rowspan="2" class="left">{{ mold.project.cp.initials }}</td>
+                            <td rowspan="2" class="left">{{ mold.solution }}</td>
+                        {% for milestone in milestones %}
+                            <td> 
+                                {% for generalPlan in generalPlans %}                                   
+                                    {% if generalPlan.mold.id == mold.id and generalPlan.milestone.sequence == milestone.sequence %}
+                                        {% if generalPlan.previsionnel is not null %}
+                                            <a href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'previsionnel'}) }}">{{ generalPlan.previsionnel|date('W.N') }}</a>
+                                        {% else %}
+                                            <a class="btn btn-action-gp btn-warning" href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'previsionnel'}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="center">
+                        {% for milestone in milestones %}
+                            <td>
+                                {% for generalPlan in generalPlans %}
+                                    {% if generalPlan.milestone.id == milestone.id and generalPlan.mold.id == mold.id %}
+                                        {% if generalPlan.reel is not null %}
+                                            {% if generalPlan.reel > generalPlan.previsionnel %}
+                                                <a class="delay" href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">{{ generalPlan.reel|date('W.N') }}</a>
+                                            {% elseif generalPlan.reel < generalPlan.previsionnel %}
+                                                <a class="better" href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">{{ generalPlan.reel|date('W.N') }}</a>
+                                            {% else %}
+                                                <a href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">{{ generalPlan.reel|date('W.N') }}</a>
+                                            {% endif %}
+                                        {% else %}
+                                            <a class="btn btn-action-gp btn-warning" href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>   
+{% endblock %}
+{% block javascripts %}
+   <!-- <script type="text/javascript">
+        var idth = document.getElementsByTagName("th")[4].innerHTML;
+        $('table td').click(function(){
+            alert('idTH : ' + idth);
+        });
+        
+    </script>-->
+    
+{% endblock %}  

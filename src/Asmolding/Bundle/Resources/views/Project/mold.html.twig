@@ -1,0 +1,81 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Affaire
+{% endblock %}
+{% block stylesheets %}
+    <style>
+
+    .oneMold{float: left;width: 200px;margin-right: 200px;margin-bottom: 2px;}.twoMold{float: left;width: 320px;margin-left: 220px; margin-top: -30px;margin-bottom: 2px;}.num1Mold{float: left;width: 50px;margin-left: 220px;margin-top: -30px;margin-bottom: 2px;}.dasMold{float: left;width: 80px;margin-left: 65px;margin-top: -8px;margin-bottom: 2px;}.num2Mold{float: left;width: 50px;margin-left: 380px;margin-right: 150px;margin-top: -42px;margin-bottom: 2px;}
+    
+  </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+       
+        
+        {{ form_start(form, {'attr': {'class': 'form-classic', novalidate:'novalidate'}}) }}
+        {{ form_errors(form) }}
+        
+        <a class="btn btn-primary" role="button" href="{{ path('asmolding_admin_listArchivedMolds', {'projectId':project.id}) }}">
+            <span class="glyphicon glyphicon-share-alt"></span> Restaurer les affaires clôturées</a>
+            
+        {% if mold.id == 0 %}
+            <h2 class="form-signin-heading">Ajouter une affaire</h2>
+        {% else %}
+            <h2 class="form-signin-heading">Modifier une affaire</h2>
+        {% endif %}
+        
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.company, "Société") }}</div>
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.company) }}</div>{{ form_widget(form.company, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.project, "Projet") }}</div>          
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.project) }}</div>{{ form_widget(form.project, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.numProject, "Numéro du projet") }}</div>
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.numProject) }}</div>{{ form_widget(form.numProject, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true, 'read_only':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.num1, "Numéro affaire") }}</div>
+            <div class="alert-danger">{{ form_errors(form.num1) }}</div>
+            <div class="alert-danger">{{ form_errors(form.das) }}</div>
+            <div class="alert-danger">{{ form_errors(form.num2) }}</div>
+            <div class="num1Mold">{{ form_widget(form.num1, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="twoMold">
+            <div class="twoMold">{{ form_label(form.das, " ") }}</div>
+            <div class="dasMold">{{ form_widget(form.das, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="num2Mold">
+            <div>{{ form_label(form.num2, " ") }}</div>
+            <div>{{ form_widget(form.num2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.name, "Nom de l'affaire") }}</div>
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.name) }}</div>{{ form_widget(form.name, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.description, "Description") }}</div>
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.description) }}</div>{{ form_widget(form.description, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.solution, "Solution") }}</div>
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.solution) }}</div>{{ form_widget(form.solution, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneMold">
+            <div class="oneMold">{{ form_label(form.image, "Photo") }}</div>           
+            <div class="twoMold"><div class="alert-danger">{{ form_errors(form.image) }}</div>{{ form_widget(form.image, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        {% if mold.id == 0 %}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% else %}
+            {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% endif %}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}

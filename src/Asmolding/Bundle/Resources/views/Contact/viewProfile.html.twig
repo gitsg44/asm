@@ -1,0 +1,60 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Mon profil{% endblock %}
+{% block body %}
+    <div class="container">
+        {% if contact.level == 1 or contact.company.level == 1 %}
+                <a class="btn btn-success" role="button" href="{{ path('asmolding_admin_manageProfile', {'mode': 'modifier', id:contact.id}) }}">
+        {% else %}
+                <a class="btn btn-success" role="button" href="{{ path('asmolding_client_manageProfile', {'mode': 'modifier', id:contact.id}) }}">
+        {% endif %}   
+            <span class="glyphicon glyphicon-pencil"></span> Modifier mon profil</a>
+        {% if contact.level == 1 or contact.company.level == 1 %}
+                <a class="btn btn-success" role="button" href="{{ path('asmolding_admin_changePassword', {id:contact.id}) }}">
+        {% else %}
+                <a class="btn btn-success" role="button" href="{{ path('asmolding_client_changePassword', {id:contact.id}) }}">
+        {% endif %}   
+            <span class="glyphicon glyphicon-lock"></span> Modifier mon mot de passe</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Société</th>
+                    <th>Email</th>
+                    <th>Identifiant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.firstname }}</td>
+                    <td>{{ contact.company.name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.username}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <p>Confirmer la suppression de l'élément ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-danger">Confirmer</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $('#confirmModal').modal('hide');
+        $("a[data-role=delete]").click(function (event) {
+            console.log('click');
+            //event.preventDefault();
+
+        })
+    </script>
+{% endblock %}

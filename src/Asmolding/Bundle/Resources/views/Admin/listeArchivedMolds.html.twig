@@ -1,0 +1,60 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Liste des affaires{% endblock %}
+{% block body %}
+    <div class="container">
+        <a class="btn btn-primary" role="button" href="{{ path('asmolding_admin_listProjects') }}">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste des projets</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Projet</th>
+                    <th>Numéro de projet</th>
+                    <th>Numéro d'affaire</th>
+                    <th>DAS</th>
+                    <th>Indice</th>
+                    <th>Nom de l'affaire</th>
+                    <th>Description</th>
+                    <th>Solution</th>
+                    <th>Photo</th>
+                    <th>
+                        <a data-role="delete" href="{{ path('asmolding_admin_restoreMolds', {'projectId': projectId,'mode':'archiver'}) }}">Tout Restaurer</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mold in molds %}
+                    <tr>
+                        <td>{{ mold.project.company.name }}</td>
+                        <td>{{ mold.project.name }}</td>
+                        <td>{{ mold.project.num }}</td>
+                        <td>{{ mold.num|slice(0, 3) }}</td>
+                        {% if mold.num|length == 10 %}
+                            <td>{{ mold.num|slice(4, 2) }}</td>
+                            <td>{{ mold.num|slice(7, 3) }}</td>
+                        {% elseif mold.num|length == 11 %}
+                            <td>{{ mold.num|slice(4, 3) }}</td>
+                            <td>{{ mold.num|slice(8, 3) }}</td>
+                        {% endif %}
+                        <td>{{ mold.name }}</td>
+                        <td>{{ mold.description }}</td>
+                        {% if mold.solution is defined %}
+                            <td>{{ mold.solution }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if mold.image.webPath is defined %}
+                            <td><img src="{{ asset(mold.image.webPath) }}"/></td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td class="center">
+                            <a data-role="delete" class="btn btn-action btn-success" href="{{ path('asmolding_admin_manageMolds', {'projectId':mold.project.id, 'id':mold.id, 'mode':'restaurer'}) }}"><span class="glyphicon glyphicon-share-alt"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

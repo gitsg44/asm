@@ -1,0 +1,94 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Liste des projets{% endblock %}
+{% block body %}
+    <div class="container_3">
+        <a class="btn btn-success" role="button" href="{{ path('asmolding_admin_manageProjects', {'mode':'ajout','id':0}) }}">
+            <span class="glyphicon glyphicon-plus"></span> Ajouter un projet</a>
+        <a class="btn btn-info" role="button" href="{{ path('asmolding_admin_searchProjects') }}">
+            <span class="glyphicon glyphicon-search"></span> Rechercher un projet</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Photo</th>
+                    <th>Nom du projet</th>
+                    <th>Numéro de projet</th>
+                    <th>Chef de projet</th>
+                    <th>Description</th>
+                    <th>Début du projet</th>
+                    <th>Actions</th>
+                    <th>Affaires</th>
+                    <th>Contacts</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.company.name }}</td>
+                        {% if project.image.webPath is defined %}
+                            <td><img src="{{ asset(project.image.webPath) }}"/></td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.num }}</td>
+                        <td>{{ project.cp.nameFirstname }}</td>                   
+                        <td>{{ project.description }}</td>
+                        <td>{{ project.planstart|date('d/m/Y') }}</td>
+                        <td>   
+                            <a data-role="modify" class="btn btn-action btn-warning" href="{{ path('asmolding_admin_manageProjects', {'id':project.id, 'mode':'modifier'}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a data-role="delete" class="btn btn-action btn-danger" href="{{ path('asmolding_admin_manageProjects', {'id':project.id, 'mode':'supprimer'}) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                        <td>
+                            <a data-role="addAffaire" class="btn btn-action btn-success" href="{{ path('asmolding_admin_manageMolds', {'projectId':project.id, 'id':'0', 'mode':'ajouter'}) }}"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a data-role="seeAffaires" class="btn btn-action btn-primary" href="{{ path('asmolding_admin_listMolds', {'projectId':project.id}) }}"><span class="glyphicon glyphicon-list"></span></a>
+                        </td>
+                        <td>
+                             <a data-role="addContact" class="btn btn-action btn-success" href="{{ path('asmolding_admin_managePRC', {'projectId':project.id, 'id': '0', 'mode':'ajouter'}) }}"><span class="glyphicon glyphicon-plus"></span></a>
+                             <a data-role="seeContacts" class="btn btn-action btn-primary" href="{{ path('asmolding_admin_listPRC', {'projectId':project.id}) }}"><span class="glyphicon glyphicon-list"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+            
+   <div class="modal fade" id="confirmModal">
+        <div class="modal-dialog modal-sm">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h3><span class="glyphicon glyphicon-alert"></span> Confirmation de suppression</h3>
+             </div>
+             <div class="modal-body">
+                 <p>Confirmez-vous la suppression de ce projet ?</p>
+             </div>
+             <div class="modal-footer">
+                 <a href="#" class="btn btn-info" id="confirmModalNo"> <span class="glyphicon glyphicon-cutlery"></span> Annuler</a>
+                 <a href="#" class="btn btn-success" id="confirmModalYes"> <span class="glyphicon glyphicon-trash"></span> Confirmer</a>
+             </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+    var theHREF;
+
+    $(".btn-danger").click(function(e) {
+        e.preventDefault();
+        theHREF = $(this).attr("href");
+        $("#confirmModal").modal("show");
+    });
+
+    $("#confirmModalNo").click(function(e) {
+        $("#confirmModal").modal("hide");
+    });
+
+    $("#confirmModalYes").click(function(e) {
+        window.location.href = theHREF;
+    });
+});
+
+    </script>
+{% endblock %}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp/www/asm/web/css/bootstrap.min.css</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Resources/views/Company/Company.html.twig</file>
+            <file>file:/C:/wamp/www/asm/app/Resources/views/base.html.twig</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Entity/Company.php</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Entity/Contact.php</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Resources/views/Admin/listeCompanies.html.twig</file>
+            <file>file:/C:/wamp/www/asm/web/css/bootstrap-theme.min.css</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Resources/config/routing.yml</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Controller/AdminController.php</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Resources/views/Contact/Contact.html.twig</file>
+            <file>file:/C:/wamp/www/asm/src/Asmolding/Bundle/Resources/views/Admin/listeContacts.html.twig</file>
+        </group>
+    </open-files>
+</project-private>

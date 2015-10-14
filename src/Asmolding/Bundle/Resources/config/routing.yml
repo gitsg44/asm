@@ -1,0 +1,199 @@
+asmolding_index:
+    path:     /
+    defaults: { _controller: AsmoldingBundle:Default:index }
+    
+# LOGIN
+asmolding_login:
+    path: /login
+    defaults: {_controller: AsmoldingBundle:Authentification:login }
+asmolding_login_check:
+    path: /login_check
+asmolding_logout:
+    path: /logout
+    defaults: {_controller: AsmoldingBundle:Authentification:logout }
+    
+# ADMINISTRATEUR
+
+    # Accueil
+asmolding_admin_homepage:
+    path: /admin
+    defaults: {_controller: AsmoldingBundle:Admin:index }
+    
+    # Gestion des CONTACTS
+asmolding_admin_listContacts:
+    path: /admin/utilisateurs
+    defaults: { _controller: AsmoldingBundle:Admin:listContacts}
+asmolding_admin_searchContacts:
+    path: /admin/utilisateurs/recherche
+    defaults: { _controller: AsmoldingBundle:Admin:searchContacts}
+asmolding_admin_listFoundContactsByName:
+    path: /admin/utilisateurs/rechercheName/{name}
+    defaults: { _controller: AsmoldingBundle:Admin:listFoundContactsByName}
+asmolding_admin_listFoundContactsByCompany:
+    path: /admin/utilisateurs/rechercheCompany/{companyName}
+    defaults: { _controller: AsmoldingBundle:Admin:listFoundContactsByCompany}
+asmolding_admin_manageContacts:
+    path: /admin/utilisateurs/{mode}/{id}/{search}
+    defaults: {_controller: AsmoldingBundle:Admin:manageContacts, search: "" }
+    
+    # Gestion des CLIENTS
+asmolding_admin_listCompanies:
+    path: /admin/clients
+    defaults: { _controller: AsmoldingBundle:Admin:listCompanies}
+asmolding_admin_searchCompanies:
+    path: /admin/clients/recherche
+    defaults: { _controller: AsmoldingBundle:Admin:searchCompanies}
+asmolding_admin_listFoundCompanies:
+    path: /admin/clients/recherche/{name}
+    defaults: { _controller: AsmoldingBundle:Admin:listFoundCompanies}
+asmolding_admin_manageCompanies:
+    path: /admin/clients/{mode}/{id}
+    defaults: {_controller: AsmoldingBundle:Admin:manageCompanies }
+asmolding_admin_searchCompaniesAjax:
+    path: /admin/clients/rechercher
+    defaults: {_controller: AsmoldingBundle:Filtering:searchCompaniesAjax}
+    requirements:
+        _method: POST
+    
+    # Gestion du PROFIL
+asmolding_admin_viewProfile:
+    path: /admin/profil/{id}
+    defaults: {_controller: AsmoldingBundle:Admin:viewProfile }
+asmolding_admin_manageProfile:
+    path: /admin/profil/{mode}/{id}
+    defaults: {_controller: AsmoldingBundle:Admin:manageProfile }
+asmolding_admin_changePassword:
+    path: /admin/profile/password/{id}
+    defaults: {_controller: AsmoldingBundle:Admin:changePassword }
+    
+    # Gestion des PROJETS
+asmolding_admin_listProjects:
+    path: /admin/projets
+    defaults: {_controller: AsmoldingBundle:Project:listProjects }
+asmolding_admin_searchProjects:
+    path: /admin/projets/recherche
+    defaults: { _controller: AsmoldingBundle:Project:searchProjects}
+asmolding_admin_listFoundProjects:
+    path: /admin/projets/recherche/{companyName}
+    defaults: { _controller: AsmoldingBundle:Project:listFoundProjects}
+asmolding_admin_manageProjects:
+    path: /admin/projets/{mode}/{id}/{search}
+    defaults: {_controller: AsmoldingBundle:Project:manageProjects, search: "" }
+    
+    # Gestion des AFFAIRES
+asmolding_admin_listMolds:
+    path: /admin/affaires/{projectId}
+    defaults: {_controller: AsmoldingBundle:Mold:listMolds }
+asmolding_admin_listArchivedMolds:
+    path: /admin/affairesCloturees/{projectId}
+    defaults: {_controller: AsmoldingBundle:Mold:listArchivedMolds }
+asmolding_admin_manageMolds:
+    path: /admin/affaires/{projectId}/{mode}/{id}
+    defaults: {_controller: AsmoldingBundle:Mold:manageMolds }
+asmolding_admin_archiveMolds:
+    path: /admin/affaires/{projectId}/{mode}
+    defaults: {_controller: AsmoldingBundle:Mold:archiveAll }
+asmolding_admin_restoreMolds:
+    path: /admin/affairesCloturees/{projectId}/{mode}
+    defaults: {_controller: AsmoldingBundle:Mold:restoreAll }
+    
+    # Gestion des relations CONTACT <==> PROJET
+asmolding_admin_listPRC:
+    path: /admin/projet/listContacts/{projectId}
+    defaults: {_controller: AsmoldingBundle:PRC:listPRC }
+asmolding_admin_managePRC:
+    path: /admin/projet/addContacts/{projectId}/{mode}/{id}
+    defaults: {_controller: AsmoldingBundle:PRC:managePRC }
+
+    # Gestion du planning général
+asmolding_admin_generalPlan:
+    path: /admin/planningGeneral
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:generalPlan}
+asmolding_admin_generalPlan_CP:
+    path: /admin/planningGeneralCP
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:generalPlanCP}
+asmolding_admin_manageGeneralPlan:
+    path: /admin/planningGeneral/{id}
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:manageGeneralPlan}
+asmolding_admin_editGeneralPlan:
+    path: /admin/planningGeneral/{moldId}/{milestoneId}/{type}
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:editGeneralPlan}
+asmolding_admin_listMilestones:
+    path: /admin/generalPlan/jalons
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:listMilestones}
+asmolding_admin_print2Pdf:
+    path: /admin/generalPlan/print
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:print}
+    
+    # Filtrage du PLANNING GENERAL
+asmolding_admin_filtering:
+    path: /admin/generalPlan/filters
+    defaults: {_controller: AsmoldingBundle:Filtering:filtering}
+asmolding_admin_filterByCriteria:
+    path: /admin/generalPlan/filtering{companySeparator}{companyId}{contactSeparator}{contactId}{projectSeparator}{projectId}{dasSeparator}{das}{solutionSeparator}{solution}
+    defaults: 
+        _controller: AsmoldingBundle:Filtering:filtered
+        companySeparator: "" 
+        companyId: ""
+        contactSeparator: "" 
+        contactId: ""
+        projectSeparator: ""
+        projectId: ""
+        dasSeparator: ""
+        das: ""
+        solutionSeparator: ""
+        solution: ""
+    requirements:  
+        companySeparator: /?
+        companyId: (\d+)?
+        contactSeparator: /?
+        contactId: (\d+)?
+        projectSeparator: /?
+        projectId: (\d+)?
+        dasSeparator: /?
+        das: ([^/]+)?
+        solutionSeparator: /?
+        solution: ([^/]+)?
+    options:
+        expose: true
+    
+
+    
+    # Gestion de JALONS
+asmolding_admin_listMilestones:
+    path: /admin/generalPlan/jalons
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:listMilestones}
+asmolding_admin_manageMilestones:
+    path: /admin/generalPlan/jalons/{id}
+    defaults: {_controller: AsmoldingBundle:GeneralPlan:manageMilestones}
+    
+# CLIENT
+
+    # Accueil
+asmolding_client_homepage:
+    path: /client
+    defaults: {_controller: AsmoldingBundle:Client:index }
+    
+    # Gestion du PROFIL
+asmolding_client_viewProfile:
+    path: /client/profil/{id}
+    defaults: {_controller: AsmoldingBundle:Client:viewProfile }
+asmolding_client_manageProfile:
+    path: /client/profil/{mode}/{id}
+    defaults: {_controller: AsmoldingBundle:Client:manageProfile }
+asmolding_client_changePassword:
+    path: /client/profile/password/{id}
+    defaults: {_controller: AsmoldingBundle:Client:changePassword }
+    
+    # Visualisation des PROJETS
+asmolding_client_listProjects:
+    path: /client/projets
+    defaults: {_controller: AsmoldingBundle:Client:listProjects }
+    
+    # Visualisation du PLANNING GENERAL
+asmolding_client_generalPlan:
+    path: /client/planningGeneral/{projectId}
+    defaults: {_controller: AsmoldingBundle:Client:planningGeneral }
+
+
+  

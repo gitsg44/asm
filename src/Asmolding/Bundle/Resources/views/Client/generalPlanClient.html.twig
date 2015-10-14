@@ -1,0 +1,85 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Planning général{% endblock %}
+{% block body %}
+    <div class="container_2">
+
+        <h2 class="form-signin-heading">Planning pour la semaine {{ numWeek }} - {{ year }}</h2>
+        {% if lastUpdate is not null %}
+            <h5 class="form-signin-heading">Dernière modification faite le {{ lastUpdate.updateTime|date('d/m/Y') }} par {{ lastUpdate.updateUser.nameFirstname}}</h5>
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Photo</th>
+                    <th>N° OF + Ref Pièce</th>
+                    <th>CP</th>
+                    <th>Solution</th>
+                    {% for milestone in milestones %}
+                        <th class="center">{{ milestone.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for mold in molds %}
+                    <tr class="center">
+                        <td rowspan="2" class="left">{{ mold.company.name }}</td>
+                        {% if mold.image.webPath is defined %}
+                            <td rowspan="2" class="left" id="photo"><img id="img" src="{{ asset(mold.image.webPath) }}"/></td>
+                        {% else %}
+                            <td rowspan="2" class="left"></td>
+                        {% endif %}
+                            <td rowspan="2" class="left">{{ mold.project.num }} {{ mold.num }}</td>
+                            <td rowspan="2" class="left">{{ mold.project.cp.initials }}</td>
+                            <td rowspan="2" class="left">{{ mold.solution }}</td>
+                        {% for milestone in milestones %}
+                            <td>
+                                {% for generalPlan in generalPlans %}
+                                    {% if generalPlan.mold.id == mold.id and generalPlan.milestone.sequence == milestone.sequence %}
+                                        {% if generalPlan.previsionnel is not null %}
+                                            {{ generalPlan.previsionnel|date('W.N') }}
+                                        {% else %}
+                                            n.c.
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="center">
+                        {% for milestone in milestones %}
+                            <td>
+                                {% for generalPlan in generalPlans %}
+                                    {% if generalPlan.milestone.id == milestone.id and generalPlan.mold.id == mold.id %}
+                                        {% if generalPlan.reel is not null %}
+                                            {% if generalPlan.reel > generalPlan.previsionnel %}
+                                                {{ generalPlan.reel|date('W.N') }}
+                                            {% elseif generalPlan.reel < generalPlan.previsionnel %}
+                                                {{ generalPlan.reel|date('W.N') }}
+                                            {% else %}
+                                                {{ generalPlan.reel|date('W.N') }}
+                                            {% endif %}
+                                        {% else %}
+                                            n.c.
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>   
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        var idth = document.getElementsByTagName("th")[4].innerHTML;
+        $each('table td').click(function(){
+            alert('idTH : ' + idth);
+        });
+        
+    </script>
+    
+{% endblock %}  

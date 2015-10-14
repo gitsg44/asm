@@ -1,0 +1,125 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Planning Projet
+{% endblock %}
+{% block stylesheets %}
+    <style>
+    
+    
+    
+  </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+       
+        <a class="btn btn-primary" role="button" href="{{ path('asmolding_admin_generalPlan') }}">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span> Revenir au planning général</a>
+        
+        {{ form_start(form, {'attr': {'class': 'form-classic', 'id':'form_globalPlan', novalidate:'novalidate', 'onsubmit':'return checkForm();'}}) }}
+        {{ form_errors(form) }}
+
+        <div class="oneGlobalPlan">
+            <div class="oneGlobalPlan">{{ form_label(form.project, "Projet") }}</div>
+            <div class="twoGlobalPlan"><div class="alert-danger">{{ form_errors(form.project) }}</div>{{ form_widget(form.project, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}</div>
+        </div>
+        
+        <div class="oneGlobalPlan">
+            <div class="oneGlobalPlan">{{ form_label(form.mold, "Affaire") }}</div>
+            <div class="twoGlobalPlan"><div class="alert-danger">{{ form_errors(form.mold) }}</div>{{ form_widget(form.mold, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}</div>
+        </div>
+        
+        {#
+        <div class="oneGlobalPlan">
+            <div class="oneGlobalPlan">{{ form_label(form2.solution, "Solution") }}</div>
+            <div class="twoGlobalPlan"><div class="alert-danger">{{ form_errors(form2.solution) }}</div>{{ form_widget(form2.solution, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}</div>
+        </div>#}
+        
+        {% if form.pweek is not defined or form.rweek is not defined %}
+            <div class="oneGlobalPlan">
+                <div class="oneGlobalPlan">{{ form_label(form.milestone, "Jalon") }}</div>
+                <div class="twoGlobalPlan"><div class="alert-danger">{{ form_errors(form.milestone) }}</div>{{ form_widget(form.milestone, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}</div>
+            </div>
+        {% elseif form.pweek is defined and form.rweek is defined %}
+            <div class="oneGlobalPlan">
+                <div class="oneGlobalPlan">{{ form_label(form.milestone, "Jalon") }}</div>
+                <div class="twoGlobalPlan"><div class="alert-danger">{{ form_errors(form.milestone) }}</div>{{ form_widget(form.milestone, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+            </div>
+        {% endif %}
+        {% if form.pweek is defined and form.pday is defined%}
+            
+        <div class="oneGlobalPlan">
+            <div class="oneGlobalPlan">{{ form_label(form.pweek, "Prévisionnel (N° sem N° jour) *") }}</div>
+            <div class="alert-danger">{{ form_errors(form.pweek) }}</div>
+            <div class="alert-danger">{{ form_errors(form.pday) }}</div>
+            <div class="weeks" id="pweek">{{ form_widget(form.pweek, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="days">
+            <div class="twoGlobalPlan">{{ form_label(form.pday, " ") }}</div>
+            <div id="pday">{{ form_widget(form.pday, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="years">
+            <div>{{ form_label(form.pyear, " ") }}</div>
+            <div>{{ form_widget(form.pyear, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        {% endif %}
+        
+        {% if form.rweek is defined and form.rday is defined%}
+        <div class="oneGlobalPlan">
+            <div class="oneGlobalPlan">{{ form_label(form.rweek, "Réel (N° sem N° jour) *") }}</div>
+            <div class="alert-danger">{{ form_errors(form.rweek) }}</div>
+            <div class="alert-danger">{{ form_errors(form.rday) }}</div>
+            <div class="weeks" id="rweek">{{ form_widget(form.rweek, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="days">
+            <div class="twoGlobalPlan">{{ form_label(form.rday, " ") }}</div>
+            <div id="rday">{{ form_widget(form.rday, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="years">
+            <div>{{ form_label(form.ryear, " ") }}</div>
+            <div>{{ form_widget(form.ryear, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        {% endif %}
+               
+        {{ form_widget(form.valider, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        function checkForm() {
+            
+        var pweek = document.getElementById('pweek').value;
+        var pday = document.getElementById('pday').value;
+        var rweek = document.getElementById('rweek').value;
+        var rday = document.getElementById('rday').value;
+        var erreur = 0;
+        //var pweek = document.forms['form-signin']['pweek'].value;
+        //var pday = document.forms['form-signin']['pday'].value;
+        //var rweek = document.forms['form-signin']['rweek'].value;
+        //var rday = document.forms['form-signin']['rday'].value;
+        
+        if(pweek == null || pweek == ''){
+            erreur++;
+        } else if (pday == null || pday == ''){
+            erreur++;
+        } else if (rweek == null || rweek == ''){
+            erreur++;
+        } else if (rday == null || rday == ''){
+            erreur++;
+        }
+        if(erreur == 0){
+            alert('Insertion réussie !');
+            document.getElementById('form_globalPlan').submit();
+        }
+    };
+    </script>
+{% endblock %}

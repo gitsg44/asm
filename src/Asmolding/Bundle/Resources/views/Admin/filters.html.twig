@@ -1,0 +1,183 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Filtrage
+{% endblock %}
+{% block body %}
+    <div class="container">
+  
+        <h2 class="form-filters-heading">Filtrer le planning général</h2>
+        
+        <h4>Filtrer par :</h4>
+       
+        {{ form_start(form, {'attr': {'class': 'form-filters', novalidate:'novalidate'}}) }}
+        {{ form_errors(form) }}
+        
+        <div class="form">
+            <input type="radio" checked id="radio" class="radioClient" name="filters" value="client" onclick="displayFilters());">
+            <label>Client</label>
+        </div>
+        <div id="client">
+        {{ form_errors(form.company) }}
+        {{ form_widget(form.company, {'attr':{'class':'form-control', 'onchange': 'displayPlanning();'},'placeholder':'Company','required':true,'autofocus':true, 'value':''}) }}
+        </div>
+        
+        <div class="form">
+            <input type="radio" id="radioCP" class="radioCP"  name="filters" value="cp" onclick="displayFilters();">
+            <label>Chef de projets</label>
+        </div>
+        <div id="cp">
+        {{ form_errors(form.cp) }}
+        {{ form_widget(form.cp, {'attr':{'class':'form-control', 'onchange': 'displayPlanning();'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true, 'value':''}) }}
+        </div>
+        
+        <div class="form">
+            <input type="radio" id="radioProject"  class="radioProject"  name="filters" value="project" onclick="displayFilters();">
+            <label>Projet</label>
+        </div>
+        <div id="project">
+        {{ form_errors(form2.project) }}
+        {{ form_widget(form2.project, {'attr':{'class':'form-control', 'onchange': 'displayPlanning();'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true, 'value':''}) }}
+        </div>
+        
+        <div class="form">
+            <input type="radio" id="radioDas" class="radioDas"  name="filters" value="das" onclick="displayFilters();">
+            <label>DAS</label>
+        </div>
+        <div id="das">
+        {{ form_errors(form2.das) }}
+        {{ form_widget(form2.das, {'attr':{'class':'form-control', 'onchange': 'displayPlanning();'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true, 'value':''}) }}
+        </div>
+        
+        <div class="form">
+            <input type="radio"  id="radioSolution" class="radioSolution"  name="filters" value="solution" onclick="displayFilters();">
+            <label>Solution</label>
+        </div>
+        <div id="solution">
+        {{ form_errors(form2.solution) }}
+        {{ form_widget(form2.solution, {'attr':{'class':'form-control', 'onchange': 'displayPlanning();'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true, 'value':''}) }}
+        </div>
+        
+        
+        {#
+        <div class="one" id="company">
+            <div class="one">{{ form_label(form.company, "Client") }}</div>
+            <div class="two"><div class="alert-danger">{{ form_errors(form.company) }}</div>{{ form_widget(form.company, {'attr':{'class':'form-control', 'onchange': 'displayCheckbox();'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="one">
+            <div class="one">{{ form_label(form.cp, "Chef de Projets") }}</div>
+            <div class="two"><div class="alert-danger">{{ form_errors(form.cp) }}</div>{{ form_widget(form.cp, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="one">
+            <div class="one">{{ form_label(form2.project, "Projet") }}</div>
+            <div class="two"><div class="alert-danger">{{ form_errors(form2.project) }}</div>{{ form_widget(form2.project, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="one">
+            <div class="one">{{ form_label(form2.das, "DAS") }}</div>
+            <div class="two"><div class="alert-danger">{{ form_errors(form2.das) }}</div>{{ form_widget(form2.das, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="one">
+            <div class="one">{{ form_label(form2.solution, "Solution") }}</div>
+            <div class="two"><div class="alert-danger">{{ form_errors(form2.solution) }}</div>{{ form_widget(form2.solution, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        #}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+    <div id="results" class="container2">
+    </div>
+    
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+    $('input[type=radio][name=filters]').change(function() {
+    var divClient = document.getElementById("form_filter_company");
+    var divCP = document.getElementById("form_filter_cp");
+    var divProject = document.getElementById("form_filter_project");
+    var divDas = document.getElementById("form_filter_das");
+    var divSolution = document.getElementById("form_filter_solution");
+    
+    switch($(this).val()) {
+         case 'client':
+             divClient.disabled = false;
+             divCP.disabled = true;
+             divCP.selectedIndex = 0;
+             divProject.disabled = true;
+             divProject.selectedIndex = 0;
+             divDas.disabled = true;
+             divDas.selectedIndex = 0;
+             divSolution.disabled = true;
+             divSolution.selectedIndex = 0;
+             break;
+         case 'cp':
+             divClient.disabled = true;
+             divClient.selectedIndex = 0;
+             divCP.disabled = false;
+             divCP.selectedIndex = 0;
+             divProject.disabled = true;
+             divProject.selectedIndex = 0;
+             divDas.disabled = true;
+             divDas.selectedIndex = 0;
+             divSolution.disabled = true;
+             divSolution.selectedIndex = 0;
+             break;
+         case 'project':
+             divClient.disabled = true;
+             divClient.selectedIndex = 0;
+             divCP.disabled = true;
+             divCP.selectedIndex = 0;
+             divProject.disabled = false;
+             divProject.selectedIndex = 0;
+             divDas.disabled = true;
+             divDas.selectedIndex = 0;
+             divSolution.disabled = true;
+             divSolution.selectedIndex = 0;
+             break;
+         case 'das':
+             divClient.disabled = true;
+             divClient.selectedIndex = 0;
+             divCP.disabled = true;
+             divCP.selectedIndex = 0;
+             divProject.disabled = true;
+             divProject.selectedIndex = 0;
+             divDas.disabled = false;
+             divDas.selectedIndex = 0;
+             divSolution.disabled = true;
+             divSolution.selectedIndex = 0;
+             break;
+         case 'solution':
+             divClient.disabled = true;
+             divClient.selectedIndex = 0;
+             divCP.disabled = true;
+             divCP.selectedIndex = 0;
+             divProject.disabled = true;
+             divProject.selectedIndex = 0;
+             divDas.disabled = true;
+             divDas.selectedIndex = 0;
+             divSolution.disabled = false;
+             divSolution.selectedIndex = 0;
+             break;
+             
+     }
+});
+function displayClient(){
+    var divClient = document.getElementById("form_filter_company");
+    var divCP = document.getElementById("form_filter_cp");
+    var divProject = document.getElementById("form_filter_project");
+    var divDas = document.getElementById("form_filter_das");
+    var divSolution = document.getElementById("form_filter_solution");
+    
+    divClient.disabled = false;
+    divClient.selectedIndex = 0;
+    divCP.selectedIndex = 0;
+    divProject.selectedIndex = 0;
+    divDas.selectedIndex = 0;
+    divSolution.selectedIndex = 0;
+    
+};
+</script>
+{% endblock %}

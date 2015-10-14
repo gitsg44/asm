@@ -1,0 +1,65 @@
+security:
+    encoders:
+        Asmolding\Bundle\Entity\Contact: plaintext
+
+    role_hierarchy:
+        ROLE_CLIENT:       ROLE_CLIENT
+        ROLE_PARTENAIRE:  ROLE_PARTENAIRE
+        ROLE_CHEFPROJET:    ROLE_CP
+        ROLE_ADMIN: [ROLE_CP, ROLE_ALLOWED_TO_SWITCH]
+
+
+    providers:
+        asmoldingdb:
+            entity:
+                class: Asmolding\Bundle\Entity\Contact
+                property: username                 
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt|console)|css|images|js)/
+            security: false
+        
+        login:
+            pattern:  ^/login$
+            anonymous: true
+            
+            
+        main:
+            pattern:    ^/
+            anonymous: false
+            form_login:
+                login_path:  /login
+                check_path:  /login_check
+                success_handler: redirect.after.login
+            logout:
+                path:   /logout
+                #target: /login
+                success_handler: redirect.after.logout
+            remember_me:
+                key: %secret%
+                lifetime: 2592000 
+                # 30 jours en secondes
+                path:     /
+                domain:   ~
+
+        
+        
+
+            
+
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin$, roles: [ ROLE_ADMIN, ROLE_CHEFPROJET ] }
+        - { path: ^/admin/profil, roles: [ ROLE_ADMIN, ROLE_CHEFPROJET ] }
+        - { path: ^/admin/profile, roles: [ ROLE_ADMIN, ROLE_CHEFPROJET ] }
+        - { path: ^/admin/clients, roles: ROLE_ADMIN }
+        - { path: ^/admin/projets, roles: ROLE_ADMIN }
+        - { path: ^/admin/affaires, roles: ROLE_ADMIN }
+        - { path: ^/admin/projet, roles: ROLE_ADMIN }
+        - { path: ^/client, roles: [ ROLE_PARTENAIRE, ROLE_CLIENT ] }
+        - { path: ^/admin/profil, roles: [ ROLE_CLIENT, ROLE_PARTENAIRE ] }
+        - { path: ^/admin/profile, roles: [ ROLE_CLIENT, ROLE_PARTENAIRE ] }
+        #- { path: ^/client/ftp, roles: ROLE_PARTENAIRE }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

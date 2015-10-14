@@ -1,0 +1,159 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Client
+{% endblock %}
+{% block stylesheets %}
+    <style>
+    
+    
+    
+  </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        
+        {{ form_start(form, {'attr': {'class': 'form-classic', novalidate:'novalidate'}}) }}
+        {{ form_errors(form) }}
+        {% if company.id == 0 %}
+            <h2 class="form-signin-heading">Ajouter un client</h2>
+        {% else %}
+            <h2 class="form-signin-heading">Modifier un client</h2>
+        {% endif %}
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.name, "NOM (en majuscules) *") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.name) }}</div>{{ form_widget(form.name, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.legalform, "Forme légale (en majuscules)") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.legalform) }}</div>{{ form_widget(form.legalform, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.address, "Adresse *") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.address) }}</div>{{ form_widget(form.address, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.zip, "Code Postal *") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.zip) }}</div>{{ form_widget(form.zip, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.city, "Ville (en majuscules) *") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.city) }}</div>{{ form_widget(form.city, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.country, "Pays") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.country) }}</div>{{ form_widget(form.country, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.phone, "Téléphone") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.phone) }}</div>{{ form_widget(form.phone, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="OneCompany">{{ form_label(form.fax, "Fax") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.fax) }}</div>{{ form_widget(form.fax, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.email, "Email") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.email) }}</div>{{ form_widget(form.email, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.www, "Site Web") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.www) }}</div>{{ form_widget(form.www, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        
+        <div class="oneCompany">
+            <div class="oneCompany">{{ form_label(form.branche, "Segment client") }}</div>
+            <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.branche) }}</div>{{ form_widget(form.branche, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneCompany">
+        {{ form_label(form.level, "Administrateur ?") }}
+        <div class='alert-danger'>{{ form_errors(form.level) }}</div>
+        {{ form_widget(form.level, {'attr':{'class':'checkboxCompany'},'required':false,'autofocus':true}) }}
+        </div>
+        
+        <div class="twoCompany">
+        {{ form_label(form.reglevel, "Accès FTP ?") }}
+        <div class='alert-danger'>{{ form_errors(form.reglevel) }}</div>
+        {{ form_widget(form.reglevel, {'attr':{'class':'checkboxCompany'},'required':false,'autofocus':true}) }}
+        </div>
+        
+        <div style="float: left; margin-right: 70px;">
+            <label>Afficher plus de champs</label>
+            <input type="checkbox" id="checkBoxOptions"  onclick="displayOptions();"style="float: left; margin-left: 170px; margin-top: -20px;">
+        </div>
+        
+        {# CHAMPS OPTIONNELS #}
+        <div id="optionnal" style="display: none;">
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.name2, "NOM (2) (en majuscules)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.name2) }}</div>{{ form_widget(form.name2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.legalform2, "Forme légale (2) (en majuscules)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.legalform2) }}</div>{{ form_widget(form.legalform2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.address2, "Adresse (2)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.address2) }}</div>{{ form_widget(form.address2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.zip2, "Code Postal (2)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.zip2) }}</div>{{ form_widget(form.zip2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.city2, "Ville (2) (en majuscules)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.city2) }}</div>{{ form_widget(form.city2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.country2, "Pays (2)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.country2) }}</div>{{ form_widget(form.country2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.phone2, "Téléphone (2)") }}</div> 
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.phone2) }}</div>{{ form_widget(form.phone2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.fax2, "Fax(2)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.fax2) }}</div>{{ form_widget(form.fax2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.email2, "Email (2)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.email2) }}</div>{{ form_widget(form.email2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+            <div class="oneCompany">
+                <div class="oneCompany">{{ form_label(form.www2, "Site Web(2)") }}</div>
+                <div class="twoCompany"><div class='alert-danger'>{{ form_errors(form.www2) }}</div>{{ form_widget(form.www2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+            </div>
+        </div>
+        {% if company.id == 0 %}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% else %}
+            {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% endif %}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+     
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+function displayOptions() {
+    var checkbox = document.getElementById("checkBoxOptions");
+    var div = document.getElementById("optionnal");
+    if (checkbox.checked === true) {
+    div.style.display="block";
+    } else{
+    div.style.display="none";
+    }
+}
+</script>
+{% endblock %}

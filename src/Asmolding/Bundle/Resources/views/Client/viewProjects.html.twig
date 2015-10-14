@@ -1,0 +1,54 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Liste de vos projets{% endblock %}
+{% block body %}
+    <div class="container">
+        <h2 class="form-signin-heading">Vos projets</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom du projet</th>
+                    <th>Description</th>
+                    <th>Début du projet</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.description }}</td>
+                        <td>{{ project.planstart|date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('asmolding_client_generalPlan', {'projectId': project.id}) }}">Détail</a>
+                            Lien vers SmartSheet : http://fr.smartsheet.com/
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+            
+    <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <p>Confirmer la suppression de l'élément ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-danger">Confirmer</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $('#confirmModal').modal('hide');
+        $("a[data-role=delete]").click(function (event) {
+            console.log('click');
+            //event.preventDefault();
+
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Espace Administrateur{% endblock %}
+{% block body %}
+<div class="container">
+    {% if is_granted('ROLE_ADMIN') %}
+        Bonjour {{ name }}, et bienvenue dans votre espace ADMINISTRATEUR
+    {% elseif is_granted('ROLE_CHEFPROJET') %}
+        Bonjour {{ name }}, et bienvenue dans votre espace CHEF DE PROJETS
+    {% endif %}
+    <div>
+        <br /><br />
+        {% if is_granted('ROLE_ADMIN') %}
+            <img src="{{ asset('images/Customer_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_listCompanies') }}"> Gérer les clients</a>
+            <br />
+            <a class="index" href="{{ path('asmolding_admin_listContacts') }}">
+            <img src="{{ asset('images/Users_icon_64.png') }}" /> Gérer les utilisateurs
+            </a>
+            <br />
+            <img src="{{ asset('images/Project_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_listProjects') }}"> Gérer les projets/affaires</a>
+            <br />
+        {% elseif is_granted('ROLE_CHEFPROJET') %}
+            <img src="{{ asset('images/Calendar_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_generalPlan_CP') }}"> Gérer <b>votre</b> planning général (vos clients / vos projets)</a>
+            <br />
+            <img src="{{ asset('images/Planning_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_filtering') }}"> Filtrer et gérer <b>votre</b> planning général</a>
+            <br />
+        {% endif %}
+        <img src="{{ asset('images/Calendar_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_generalPlan') }}"> Gérer le planning général (tous les clients / tous les projets)</a>
+            <br />
+        <img src="{{ asset('images/Planning_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_filtering') }}"> Filtrer et gérer le planning général</a>
+            <br />
+        <img src="{{ asset('images/Profile_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_admin_viewProfile', {'id': app.user.id}) }}"> Gérer votre Profil</a>
+            <br />
+    </div>
+</div>
+
+{% endblock %}

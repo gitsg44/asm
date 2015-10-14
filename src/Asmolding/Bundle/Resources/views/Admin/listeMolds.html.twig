@@ -1,0 +1,107 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Liste des affaires{% endblock %}
+{% block body %}
+    <div class="container">
+        <a class="btn btn-primary" role="button" href="{{ path('asmolding_admin_listProjects') }}">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste des projets</a>
+        <a class="btn btn-success" role="button" href="{{ path('asmolding_admin_manageMolds', {'projectId': projectId, 'id':'0', 'mode':'ajouter'}) }}">
+            <span class="glyphicon glyphicon-plus"></span> Ajouter une affaire</a>
+        <a class="btn btn-primary" role="button" href="{{ path('asmolding_admin_listArchivedMolds', {'projectId': projectId}) }}">
+            <span class="glyphicon glyphicon-share-alt"></span> Restaurer les affaires clôturées</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Projet</th>
+                    <th>Numéro de projet</th>
+                    <th>Numéro d'affaire</th>
+                    <th>DAS</th>
+                    <th>Indice</th>
+                    <th>Nom de l'affaire</th>
+                    <th>Description</th>
+                    <th>Solution</th>
+                    <th>Photo</th>
+                    <th>Actions</th>
+                    <th>
+                        <a data-role="delete" href="{{ path('asmolding_admin_archiveMolds', {'projectId': projectId,'mode':'archiver'}) }}">Tout Clôturer</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mold in molds %}
+                    <tr>
+                        <td>{{ mold.project.company.name }}</td>
+                        <td>{{ mold.project.name }}</td>
+                        <td>{{ mold.project.num }}</td>
+                        <td>{{ mold.num|slice(0, 3) }}</td>
+                        {% if mold.num|length == 10 %}
+                            <td>{{ mold.num|slice(4, 2) }}</td>
+                            <td>{{ mold.num|slice(7, 3) }}</td>
+                        {% elseif mold.num|length == 11 %}
+                            <td>{{ mold.num|slice(4, 3) }}</td>
+                            <td>{{ mold.num|slice(8, 3) }}</td>
+                        {% endif %}
+                        <td>{{ mold.name }}</td>
+                        <td>{{ mold.description }}</td>
+                        {% if mold.solution is defined %}
+                            <td>{{ mold.solution }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if mold.image.webPath is defined %}
+                            <td><img src="{{ asset(mold.image.webPath) }}"/></td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td>
+                            <a data-role="modify" class="btn btn-action btn-warning" href="{{ path('asmolding_admin_manageMolds', {'projectId':mold.project.id, 'id':mold.id, 'mode':'modifier'}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a data-role="delete" class="btn btn-action btn-danger" href="{{ path('asmolding_admin_manageMolds', {'projectId':mold.project.id, 'id':mold.id, 'mode':'supprimer'}) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                        <td class="center">
+                            <a data-role="delete" class="btn btn-action btn-success" href="{{ path('asmolding_admin_manageMolds', {'projectId':mold.project.id, 'id':mold.id, 'mode':'archiver'}) }}"><span class="glyphicon glyphicon-check"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+            
+    <div class="modal fade" id="confirmModal">
+        <div class="modal-dialog modal-sm">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h3><span class="glyphicon glyphicon-alert"></span> Confirmation de suppression</h3>
+             </div>
+             <div class="modal-body">
+                 <p>Confirmez-vous la suppression de cette affaire ?</p>
+             </div>
+             <div class="modal-footer">
+                 <a href="#" class="btn btn-info" id="confirmModalNo"> <span class="glyphicon glyphicon-remove-circle"></span> Annuler</a>
+                 <a href="#" class="btn btn-success" id="confirmModalYes"> <span class="glyphicon glyphicon-trash"></span> Confirmer</a>
+             </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+    var theHREF;
+
+    $(".btn-danger").click(function(e) {
+        e.preventDefault();
+        theHREF = $(this).attr("href");
+        $("#confirmModal").modal("show");
+    });
+
+    $("#confirmModalNo").click(function(e) {
+        $("#confirmModal").modal("hide");
+    });
+
+    $("#confirmModalYes").click(function(e) {
+        window.location.href = theHREF;
+    });
+});
+
+    </script>
+{% endblock %}

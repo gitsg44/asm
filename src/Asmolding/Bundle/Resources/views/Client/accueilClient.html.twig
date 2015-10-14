@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Espace Client{% endblock %}
+{% block body %}
+<div class="container">
+    Bonjour {{ name }}, et bienvenue dans votre espace CLIENT
+    <div>
+        <br /><br />
+        <a class="index" href="{{ path('asmolding_client_listProjects') }}">
+        <img src="{{ asset('images/Project_icon_64.png') }}" /> Voir vos projets
+        <br />
+        {% if is_granted('ROLE_PARTENAIRE') %}
+            <img src="{{ asset('images/FTP_icon_64.png') }}" />
+            <a class="index" href="{{ path('asmolding_client_homepage') }}"> Envoyer ou recevoir des documents</a>
+            <br />
+        {% endif %}
+        <img src="{{ asset('images/Profile_icon_64.png') }}" />
+        <a class="index" href="{{ path('asmolding_client_viewProfile', {'id': app.user.id}) }}"> Profil</a>
+        <br />
+    </div>
+</div>
+
+{% endblock %}

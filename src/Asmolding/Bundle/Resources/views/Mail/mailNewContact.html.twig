@@ -1,0 +1,39 @@
+{# empty Twig template #}
+{% block title %}
+    <div>
+        <img src="{{ cid }}"/> ASMOLDING
+    </div>
+{% endblock %}
+{% block body %}
+    <div> 
+            Bonjour, 
+    </div>
+    <div>
+        <p>
+            Nous vous avons créé un accès à notre extranet dans lequel vous pourrez suivre l'état de vos projets.
+        </p>
+        <p>
+            Voici vos identifiants :
+        </p>
+        <div>
+                Nom d'utilisateur : {{ contact.username }}
+                <br />
+                Mot de passe : {{ contact.password }}
+        </div>
+        <p>
+            Vous pouvez dès maintenant vous connecter <a href="http://asmolding.local">ici</a> avec vos identifiants.
+            <br />
+            Merci de changer votre mot de passe dès la première connexion.
+        </p>
+    </div>
+    <div>
+        <p> 
+            Cordialement,
+        </p>
+        <div>
+            <img src="{{ cid }}"/>
+            <br />
+            L'équipe ASM
+        </div>
+    </div>
+{% endblock %}

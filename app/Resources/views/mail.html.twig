@@ -1,0 +1,29 @@
+{# empty Twig template #}
+{% block title %}
+    <div>
+        <img src="{{ cid }}"/> ASMOLDING
+    </div>
+{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block body %}
+    {% block mailHello %}
+        <div> 
+            Bonjour, 
+        </div>
+    {% endblock %}
+    {% block mailBody %}
+    {% endblock %}
+    {% block mailSignature %}
+        <div>
+            <p> 
+                Cordialement,
+            </p>
+            <div>
+                <img src="{{ cid }}"/>
+                <br />
+                L'équipe ASM
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

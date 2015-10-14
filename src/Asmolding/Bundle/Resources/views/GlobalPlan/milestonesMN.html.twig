@@ -1,0 +1,58 @@
+{# empty Twig template #}
+{% block stylesheets %}
+<style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; 
+   
+}
+  #sortable li { margin: 0 3px 3px 3px; padding-left: 1.5em; font-size: 1.1em; height: 25px; width: 350px;
+             -ms-user-select: none; //IE 10+ 
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;}
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+    
+    .ui-state-default{
+        display: block;
+    }
+    
+    .inline{
+        float: left;
+        margin-left: 335px;
+        margin-top: -22px;
+        height: 25px;
+        width: 50px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+<div class="form-classic">
+    <ul id="sortable">
+        
+        {% for milestone in milestones %}
+            {% if milestone.solution is null %}
+                <a href="{{ path('asmolding_admin_manageMilestones', {'id':milestone.id}) }}"><li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                    {{milestone.name}} 
+                    <input type="text" readonly="true" value="{{milestone.sequence}}" class="ui-state-default inline" id="posInput"/>
+                </li></a>
+            {% elseif milestone.solution == 'CHINE' %}
+                <div id="milestonesChine" class="noDisplay">
+                        {% include 'AsmoldingBundle:GlobalPlan:milestonesChine.html.twig' %}
+                </div> 
+            {% elseif milestone.solution == 'FRANCO-CHINE' %}
+                <div id="milestonesFrancoChine" class="noDisplay">
+                    {% include 'AsmoldingBundle:GlobalPlan:milestonesFrancoChine.html.twig' %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        
+        
+        
+
+    </ul>
+</div>
+{% block javascripts %}
+{#<script type="text/javascript" src="{{ asset('js/order.js') }}"></script>#}
+{% endblock %}
+
+

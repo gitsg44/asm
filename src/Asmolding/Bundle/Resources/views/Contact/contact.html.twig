@@ -1,0 +1,97 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Contact
+{% endblock %}
+{% block body %}
+    <div class="container">
+        
+        {{ form_start(form, {'attr': {'class': 'form-classic', novalidate:'novalidate'}}) }}
+        {{ form_errors(form) }}
+        {% if contact.id == 0 %}
+            <h2 class="form-signin-heading">Ajouter un contact</h2>
+        {% else %}
+            <h2 class="form-signin-heading">Modifier un contact</h2>
+        {% endif %}
+        <div id="company" class='oneContact'>
+            <div class="oneContact">{{ form_label(form.company, "Société") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.company) }}</div>{{ form_widget(form.company, {'attr':{'class':'form-control', 'onchange': 'displayCheckbox();'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.name, "NOM") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.name) }}</div>{{ form_widget(form.name, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.firstname, "Prénom") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.firstname) }}</div>{{ form_widget(form.firstname, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.username, "Nom d'utilisateur") }}</div>    
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.username) }}</div>{{ form_widget(form.username, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.email, "Email") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.email) }}</div>{{ form_widget(form.email, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.phone, "Téléphone") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.phone) }}</div>{{ form_widget(form.phone, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.privatePhone, "Téléphone 2") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.privatePhone) }}</div>{{ form_widget(form.privatePhone, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.fax, "Fax") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.fax) }}</div>{{ form_widget(form.fax, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.mobile, "Mobile") }}</div>
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.mobile) }}</div>{{ form_widget(form.mobile, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        
+        
+        <div id="level" class="oneContact">
+            {% if contact.id == 0  or (contact.id != 0 and contact.company.level == 1)%} 
+                <div class="oneChkbxContact"> {{ form_label(form.level, "Administrateur ?") }}</div>
+                {{ form_errors(form.level) }}
+                <div class="twoChkbxContact">{{ form_widget(form.level, {'attr':{'class':'checkboxContact'},'required':false,'autofocus':true}) }}</div>
+                <div class="twoContact">
+                {{ form_label(form.cp, "Chef de projets ?") }}
+                <div class='alert-danger'>{{ form_errors(form.cp) }}</div>
+                <div class="fourContact">{{ form_widget(form.cp, {'attr':{'class':'checkboxContact'},'required':false,'autofocus':true}) }}</div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="oneContact">
+            <div class="oneContact">{{ form_label(form.department, "Fonction") }}</div>      
+            <div class="twoContact"><div class="alert-danger">{{ form_errors(form.department) }}</div>{{ form_widget(form.department, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':false,'autofocus':true}) }}</div>
+        </div>
+        
+        {% if contact.id == 0 %}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% else %}
+            {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% endif %}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    
+    </div>
+    
+ 
+     
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+function displayCheckbox() {
+    var company = document.getElementById("form_contact_company").value;
+    var div = document.getElementById("level");
+    if (company == 1) {
+    div.style.display="block";
+    } else{
+    div.style.display="none";
+    }
+}
+</script>
+{% endblock %}

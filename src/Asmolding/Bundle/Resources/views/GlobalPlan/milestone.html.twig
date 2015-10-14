@@ -1,0 +1,48 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Jalons
+{% endblock %}
+{% block body %}
+    <div class="container">
+        
+        {#{{ form_start(form, {'attr': {'class': 'form-signin', novalidate:'novalidate'}}) }}#}
+        {% if milestone.id == 0 %}
+            <form class="form-classic" action="{{ path('asmolding_admin_manageMilestones', {'id':0})}}" method="post" novalidate="novalidate">
+        {% else %}
+            <form class="form-classic" action="{{ path('asmolding_admin_manageMilestones', {'id':milestone.id})}}" method="post" novalidate="novalidate">
+        {% endif %}
+        {{ form_errors(form) }}
+
+        {{ form_label(form.visible, "Visible ?") }}
+        {{ form_errors(form.visible) }}
+        {{ form_widget(form.visible, {'attr':{'class':'checkbox'},'placeholder':'Company','required':true,'autofocus':true}) }}
+
+        {{ form_label(form.name, "Jalon") }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, {'attr':{'class':'form-control','placeholder':'Nom du jalon'},'required':true,'autofocus':true}) }}
+        
+        {{ form_label(form.das, "DAS") }}
+        {{ form_errors(form.das) }}
+        {{ form_widget(form.das, {'attr':{'class':'form-control'},'required':true,'autofocus':true}) }}
+        
+        {{ form_label(form.solution, "Solution") }}
+        {{ form_errors(form.solution) }}
+        {{ form_widget(form.solution, {'attr':{'class':'form-control'},'required':true,'autofocus':true}) }}
+        
+        {{ form_label(form.sequence, "Ordre") }}
+        {{ form_errors(form.sequence) }}
+        {{ form_widget(form.sequence, {'attr':{'class':'form-control', 'placeholder':'Entrez un entier'},'required':true,'autofocus':true}) }}
+        
+        {% if milestone.id == 0 %}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% else %}
+            {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% endif %}
+        {{ form_rest(form) }}
+    {#{{ form_end(form) }}#}
+        </form>
+    
+    </div>
+
+{% endblock %}

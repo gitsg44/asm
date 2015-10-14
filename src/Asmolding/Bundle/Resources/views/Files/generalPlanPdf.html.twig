@@ -1,0 +1,175 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="/images/logo_asm.png"/>
+        <title>ASMOLDING - Planning général</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="./css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="./css/custom.css" rel="stylesheet"/>
+        
+        <!-- Jquery UI CSS -->
+        <link href="/css/jquery-ui.min.css" rel="stylesheet"/>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            .navbar-date {
+                font-size:1.3em;
+            }
+            
+            .navbar-date-admin{
+                font-size: 1.1em;
+            }
+            
+            .navbar-right-admin{
+                margin-right: -120px;
+            }
+            
+            .container-admin{
+                padding-right: 10px;
+                padding-left: 10px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+        </style>
+        <style>
+        .btn-action{
+            padding: 1px 2px;
+        }
+      
+        .center{
+            text-align: center;
+        }
+        .container_2{
+            padding-right:5px;
+            padding-left:5px;
+            margin-left:5px;
+        }
+        
+        .small th{
+            font-size: 12px;
+            width: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        
+        td{
+           font-size: 12px;
+           width: 62px;
+           border: 1px solid #ccc;
+           text-align: center;
+           text-overflow: clip; 
+        }
+        
+        
+        th{
+            font-size: 10px; 
+            width: 62px;
+            border: 2px solid #000;
+            text-align: center;
+        }
+
+        a:link{
+            color: blue;
+            text-decoration: none;
+        }
+        
+        a.delay {
+           color: #f00;
+           font-weight: bold;
+        }
+        
+        a.better {
+           color: green;
+        }
+        
+        img{
+            width: 40px;
+            vertical-align: middle;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container_2">
+
+        <h2 class="form-signin-heading">Planning pour la semaine {{ numWeek }} - {{ year }}</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Photo</th>
+                    <th>N° OF + Ref Pièce</th>
+                    <th class="small">CP</th>
+                    <th>Solution</th>
+                    {% for milestone in milestones %}
+                        <th>{{ milestone.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for mold in molds %}
+                    <tr>
+                        <td rowspan="2">{{ mold.company.name }}</td>
+                        
+                        {% if mold.image.webPath is defined %}
+                            <td rowspan="2"><img src="./{{ mold.image.webPath }}"/></td>
+                        {% else %}
+                        <td rowspan="2"></td>
+                        {% endif %}
+                            <td rowspan="2">{{ mold.project.num }} {{ mold.num }}</td>
+                            <td rowspan="2" >{{ mold.project.cp.initials }}</td>
+                            <td rowspan="2">{{ mold.solution|replace('-',' ') }}</td>
+                        {% for milestone in milestones %}
+                            <td>
+                                {% for generalPlan in generalPlans %}
+                                    {% if generalPlan.milestone.sequence == milestone.sequence and generalPlan.mold.id == mold.id %}
+                                        {% if generalPlan.previsionnel is not null %}
+                                            <a href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'previsionnel'}) }}">{{ generalPlan.previsionnel|date('W.N') }}</a>
+                                        {% else %}
+                                            <a href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'previsionnel'}) }}">-</a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for milestone in milestones %}
+                            <td>
+                                {% for generalPlan in generalPlans %}
+                                    {% if generalPlan.milestone.id == milestone.id and generalPlan.mold.id == mold.id %}
+                                        {% if generalPlan.reel is not null %}
+                                            {% if generalPlan.reel > generalPlan.previsionnel %}
+                                                <a class="delay" href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">{{ generalPlan.reel|date('W.N') }}</a>
+                                            {% elseif generalPlan.reel < generalPlan.previsionnel %}
+                                                <a class="better" href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">{{ generalPlan.reel|date('W.N') }}</a>
+                                            {% else %}
+                                                <a href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">{{ generalPlan.reel|date('W.N') }}</a>
+                                            {% endif %}
+                                        {% else %}
+                                            <a href="{{ path('asmolding_admin_editGeneralPlan', {'moldId':mold.id, 'milestoneId':milestone.id, 'type':'reel'}) }}">-</a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>   
+</body>
+</html>

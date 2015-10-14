@@ -1,0 +1,122 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Jalons
+{% endblock %}
+{% block body %}
+    <div class="container">
+        {{ form_start(formDas, {'attr': {'class': 'form-classic', novalidate:'novalidate'}}) }}
+        {{ form_errors(formDas) }}
+
+        {{ form_label(formDas.das, "DAS") }}
+        {{ form_errors(formDas.das) }}
+        {{ form_widget(formDas.das, {'attr':{'class':'form-control', 'onchange':'displayLists();'},'placeholder':'Company','required':true,'autofocus':true}) }}
+
+        {{ form_label(formDas.solution, "Solution") }}
+        {{ form_errors(formDas.solution) }}
+        {{ form_widget(formDas.solution, {'attr':{'class':'form-control', 'onchange':'displayLists();'},'required':true,'autofocus':true}) }}
+
+        {{ form_rest(formDas) }}
+        {{ form_end(formDas) }}
+        
+        <div id="milestonesMA" style="border: 1px solid #f00">
+            {% include 'AsmoldingBundle:GlobalPlan:milestonesMA.html.twig' %}
+        </div>
+        <div id="milestonesMN" style="border: 1px solid #0f0" class="noDisplay">
+            {% include 'AsmoldingBundle:GlobalPlan:milestonesMN.html.twig' %}
+        </div>
+        <div id="milestonesMO" style="border: 1px solid #00f" class="noDisplay">
+             {% include 'AsmoldingBundle:GlobalPlan:milestonesMO.html.twig' %}
+        </div>
+        <div id="milestonesPR" style="border: 1px solid #ff0" class="noDisplay">
+             {% include 'AsmoldingBundle:GlobalPlan:milestonesPR.html.twig' %}
+        </div>
+        <div id="milestonesPS" style="border: 1px solid #0ff" class="noDisplay">
+             {% include 'AsmoldingBundle:GlobalPlan:milestonesPS.html.twig' %}
+        </div>
+        <div id="milestonesVPI" style="border: 1px solid #f96302" class="noDisplay">
+             {% include 'AsmoldingBundle:GlobalPlan:milestonesVPI.html.twig' %}
+        </div>
+        <div id="milestonesVPU" style="border: 1px solid #000" class="noDisplay">
+             {% include 'AsmoldingBundle:GlobalPlan:milestonesVPU.html.twig' %}
+        </div>
+        
+        <div style="border: 1px solid #ccc">
+            {{ render(url('asmolding_admin_manageMilestones', {'id':0})) }}
+        </div>
+        
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+function displayLists() {
+    var das = document.getElementById("form_das").value;
+    var solution = document.getElementById("form_solution").value;
+    var divMA = document.getElementById("milestonesMA");
+    var divMN = document.getElementById("milestonesMN");
+    var divMO = document.getElementById("milestonesMO");
+    var divPR = document.getElementById("milestonesPR");
+    var divPS = document.getElementById("milestonesPS");
+    var divVPI = document.getElementById("milestonesVPI");
+    var divVPU= document.getElementById("milestonesVPU");
+    var divChine= document.getElementById("milestonesChine");
+    var divFrancoChine= document.getElementById("milestonesFrancoChine");
+    
+    if (das === "MA") {
+        divMA.style.display="block";
+    } else{
+        divMA.style.display="none";
+    }
+    if (das === "MN") {
+        if(solution === "CHINE"){
+            divChine.style.display ="block";
+        }
+        else{
+            divChine.style.display ="none";
+        }
+         if(solution === "FRANCO-CHINE"){
+        divFrancoChine.style.display ="block";
+        }
+        else{
+            divFrancoChine.style.display ="none";
+        }
+        divMN.style.display="block";
+    } else{
+        divMN.style.display="none";
+    }
+    if (das === "MO") {
+        divMO.style.display="block";
+    } else{
+        divMO.style.display="none";
+    }
+    if (das === "PR") {
+        divPR.style.display="block";
+    } else{
+        divPR.style.display="none";
+    }
+    if (das === "PS") {
+        divPS.style.display="block";
+    } else{
+        divPS.style.display="none";
+    }
+    if (das === "VPI") {
+        divVPI.style.display="block";
+    } else{
+        divVPI.style.display="none";
+    }
+    if (das === "VPU") {
+        divVPU.style.display="block";
+    } else{
+        divVPU.style.display="none";
+    }
+}
+function displayForm(){
+    //var button = document.getElementById("displayForm");
+    var divForm= document.getElementById("formMilestone");
+    
+    divForm.style.display="block";
+   
+}
+</script>
+{% endblock %}

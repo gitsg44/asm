@@ -1,0 +1,16 @@
+{% block form_row %}
+    <div class="form-group">
+        <span class="col-sm-3 col-sm-offset-2 control-label">{{ form_label(form, null, {'class':''}) }}</span>
+        <div class="col-sm-4">
+            {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block submit_widget %}
+    <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-4">
+        {{ form_widget(form, {'type':'submit', 'attr': {'class': 'btn btn-primary bn-lg btn-block'}}) }}
+    </div>
+  </div>
+{% endblock %}

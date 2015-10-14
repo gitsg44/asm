@@ -1,0 +1,25 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+    {{ parent() }} - Erreur
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        .error{
+            color: #f00;
+        }
+        
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="error">
+        <h2>
+            Une erreur s'est produite : {{ exception.message|nl2br|format_file_from_text }}
+        </h2>
+
+        <div>
+            <strong>{{ status_code }}</strong> {{ status_text }} 
+        </div>
+       
+    </div>
+{% endblock %}

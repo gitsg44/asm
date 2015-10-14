@@ -1,0 +1,48 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Rechercher un Client
+{% endblock %}
+{% block body %}
+    <div class="container">
+       
+        
+        {{ form_start(form, {'attr': {'class': 'form-classic', novalidate:'novalidate'}}) }}
+        {{ form_errors(form) }}
+       
+        {% if company is defined %}
+            
+            <h2 class="form-signin-heading">Rechercher un client</h2>
+            
+            {{ form_label(form.name, "Nom du client *") }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}
+        
+        {% elseif contact is defined %}
+            
+            <h2 class="form-signin-heading">Rechercher un contact</h2>
+            
+            {{ form_label(form.name, "Par nom *") }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}
+            
+            {{ form_label(form.company, "Par nom de client *") }}
+            {{ form_errors(form.company) }}
+            {{ form_widget(form.company, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}
+        
+        {% elseif project is defined %}
+            
+            <h2 class="form-signin-heading">Rechercher un projet</h2>
+            
+            {{ form_label(form.company, "Par nom de client *") }}
+            {{ form_errors(form.company) }}
+            {{ form_widget(form.company, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}
+        {% endif %}
+        
+        {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+     
+{% endblock %}

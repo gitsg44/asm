@@ -1,0 +1,56 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Projet
+{% endblock %}
+{% block body %}
+    <div class="container">
+       
+        {{ form_start(form, {'attr': {'class': 'form-classic'}}) }}
+        {{ form_errors(form) }}
+          {% if prc.id == 0 %}
+            <h2 class="form-signin-heading">Ajouter un contact au projet</h2>
+        {% else %}
+            <h2 class="form-signin-heading">Modifier la visiblité du projet</h2>
+        {% endif %}
+        
+        {{ form_label(form.project, "Projet") }}
+        {{ form_errors(form.project) }}
+        {{ form_widget(form.project, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true, 'disabled':true}) }}
+
+        {{ form_label(form.contact, "Contact") }}
+        {{ form_errors(form.contact) }}
+        {{ form_widget(form.contact, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}
+        
+        {% if prc.id == 0 %}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% else %}
+            {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-lg btn-successForm btn-block'}}) }}
+        {% endif %}
+        
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+{#
+{% block javascripts %}
+    <script type="text/javascript">
+        function fillContacts(){
+        var idCompany = $('#form_project_company').val();
+          $.ajax({
+            url: "{{ path('asmolding_admin_fillContacts') }}",
+            type: 'POST',
+            data: {'id': idCompany},
+            dataType: 'json',
+            success: function(json){ // quand la réponse de la requete arrive
+              $('#form_project_projetRelContacts').html(''); // tu vides le select2
+              $.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
+            $('#form_project_projetRelContacts').append('<option value="'+ value.idContact +'">'+ value.nomContact +'</option>');
+              });
+            }
+          });
+        }
+    </script>
+{% endblock %}
+#}

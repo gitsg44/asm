@@ -1,0 +1,61 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}
+        {{parent()}} - Projet
+{% endblock %}
+{% block body %}
+    <div class="container">
+       
+        
+        {{ form_start(form, {'attr': {'class': 'form-classic', novalidate:'novalidate'}}) }}
+        {{ form_errors(form) }}
+        {% if project.id == 0 %}
+            <h2 class="form-signin-heading">Ajouter un projet</h2>
+        {% else %}
+            <h2 class="form-signin-heading">Modifier un projet</h2>
+        {% endif %}
+        
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.company, "Société") }}</div>
+            <div class="twoProject"><div class="alert-danger">{{ form_errors(form.company) }}</div>{{ form_widget(form.company, {'attr':{'class':'form-control'},'placeholder':'Company','required':true,'autofocus':true}) }}</div>
+         </div>
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.num1, " Numéro de projet") }}</div>
+            <div class="alert-danger">{{ form_errors(form.num1) }}</div>
+            <div class="alert-danger">{{ form_errors(form.num2) }}</div>
+            <div class="num1Project">{{ form_widget(form.num1, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true, 'read_only':true}) }}</div>
+        </div>
+        <div class="num2Project">
+            <div class="twoProject">{{ form_label(form.num2, " ") }}</div>
+            <div>{{ form_widget(form.num2, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.name, "Nom du projet") }}</div>
+            <div class="twoProject"><div class="alert-danger">{{ form_errors(form.name) }}</div>{{ form_widget(form.name, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.cp, "Chef de projet associé") }}</div>
+            <div class="twoProject"><div class="alert-danger">{{ form_errors(form.cp) }}</div>{{ form_widget(form.cp, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.description, "Description") }}</div>           
+            <div class="twoProject"><div class="alert-danger">{{ form_errors(form.description) }}</div>{{ form_widget(form.description, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.planstart, "Début du projet") }}</div>
+            <div class="twoProject"><div class="alert-danger">{{ form_errors(form.planstart) }}</div>{{ form_widget(form.planstart, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        <div class="oneProject">
+            <div class="oneProject">{{ form_label(form.image, "Photo") }}</div>          
+            <div class="twoProject"><div class="alert-danger">{{ form_errors(form.image) }}</div>{{ form_widget(form.image, {'attr':{'class':'form-control'},'placeholder':'Prénom','required':true,'autofocus':true}) }}</div>
+        </div>
+        {% if project.id == 0 %}
+            {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-lg btn-success btn-block'}}) }}
+        {% else %}
+            {{ form_widget(form.modifier, {'attr': {'class': 'btn btn-lg btn-success btn-block'}}) }}
+        {% endif %}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}

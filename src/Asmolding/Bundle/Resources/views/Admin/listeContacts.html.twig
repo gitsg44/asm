@@ -1,0 +1,73 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+{% block title %}{{parent()}} - Liste des utilisateurs{% endblock %}
+{% block body %}
+    <div class="container">
+        <a class="btn btn-success" role="button" href="{{ path('asmolding_admin_manageContacts', {'mode':'ajout','id':0}) }}">
+            <span class="glyphicon glyphicon-plus"></span> Ajouter un contact</a>
+        <a class="btn btn-info" role="button" href="{{ path('asmolding_admin_searchContacts') }}">
+            <span class="glyphicon glyphicon-search"></span> Rechercher un contact</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NOM</th>
+                    <th>Prénom</th>
+                    <th>Société</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                    <tr>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.firstname }}</td>
+                        <td>{{ contact.company.name }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>
+                            <a data-role="modify" class="btn btn-action btn-warning" href="{{ path('asmolding_admin_manageContacts', {'id':contact.id, 'mode':'modifier'}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a data-role="delete" class="btn btn-action btn-danger" href="{{ path('asmolding_admin_manageContacts', {'id':contact.id, 'mode':'supprimer'}) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="confirmModal">
+        <div class="modal-dialog modal-sm">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h3><span class="glyphicon glyphicon-alert"></span> Confirmation de suppression</h3>
+             </div>
+             <div class="modal-body">
+                 <p>Confirmez-vous la suppression de ce contact ?</p>
+             </div>
+             <div class="modal-footer">
+                 <a href="#" class="btn btn-info" id="confirmModalNo"> <span class="glyphicon glyphicon-remove-circle"></span> Annuler</a>
+                 <a href="#" class="btn btn-success" id="confirmModalYes"> <span class="glyphicon glyphicon-trash"></span> Confirmer</a>
+             </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+    var theHREF;
+
+    $(".btn-danger").click(function(e) {
+        e.preventDefault();
+        theHREF = $(this).attr("href");
+        $("#confirmModal").modal("show");
+    });
+
+    $("#confirmModalNo").click(function(e) {
+        $("#confirmModal").modal("hide");
+    });
+
+    $("#confirmModalYes").click(function(e) {
+        window.location.href = theHREF;
+    });
+});
+
+    </script>
+{% endblock %}

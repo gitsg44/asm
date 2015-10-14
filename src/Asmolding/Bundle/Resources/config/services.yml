@@ -1,0 +1,18 @@
+parameters:
+#    asmolding.example.class: Asmolding\Bundle\Example
+   redirect.after.login.class: Asmolding\Bundle\Redirection\AfterLoginRedirection
+   redirect.after.logout.class: Asmolding\Bundle\Redirection\AfterLogoutRedirection
+
+services:
+#    asmolding.example:
+#        class: %asmolding.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    redirect.after.login:
+        class: %redirect.after.login.class%
+        arguments: [@router]
+
+    redirect.after.logout:
+        class: %redirect.after.logout.class%
+        arguments: [@router, @security.context]
+        
+ 
