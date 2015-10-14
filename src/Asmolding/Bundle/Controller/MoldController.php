@@ -257,7 +257,7 @@ class MoldController extends Controller {
         $repoProject = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Project');
         
         $project = $repoProject->find($projectId);
-        $molds = $repository->getNotArchivedByProject($project);//findBy(array('project' => $project));
+        $molds = $repository->getNotArchivedByProject($project);
         if(!$molds){
             return $this->redirect($this->generateUrl('asmolding_admin_manageMolds', array('projectId' => $projectId, 'id' => 0, 'mode' => 'ajouter')));
         }

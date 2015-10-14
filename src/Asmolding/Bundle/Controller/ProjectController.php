@@ -76,7 +76,6 @@ class ProjectController extends Controller{
             } else {
             $form->add('modifier', 'submit'); // sinon on crée un bouton Modifier
             $form->get('num1')->setData(substr($project->getNum(), 0, 2));
-            //print_r($project->getNum());
             $form->get('num2')->setData(substr($project->getNum(), 3, 5));
             }
             
@@ -100,18 +99,15 @@ class ProjectController extends Controller{
             
             //Retour vers la vue liste des projets
             $response = $this->redirect($this->generateUrl('asmolding_admin_listProjects'));
-                    //$this->forward('AsmoldingBundle:Admin:listProjects');
             return $response;
         }
         
         if($mode == 'supprimer'){
             
             $this->deleteProject($id);
-            //$this->listUsersAction();
             
             //Retour vers la vue liste des projets
             $response = $this->redirect($this->generateUrl('asmolding_admin_listProjects'));
-                    //$this->forward('AsmoldingBundle:Admin:listProjects');
             return $response;
         }
         
@@ -199,7 +195,6 @@ class ProjectController extends Controller{
         // Création du pathcode Projet (id + 8 premières lettres du nom du projet)
         $chiffres = array("0","1","2","3","4","5","6","7","8","9");
         $nameWf = ltrim($nameX, '0123456789');
-        //$nameWd = str_replace($chiffres, "X", $nameWf);
         $newName = strtoupper(str_replace($chiffres, 'X', $nameWf));
         $chaine = $id . substr($newName, 0, 8);
         $pathcode = str_pad($chaine, 12, "0", STR_PAD_LEFT);
@@ -275,7 +270,6 @@ class ProjectController extends Controller{
         // Création du pathcode Projet (id + 8 premières lettres du nom du projet)
         $chiffres = array("0","1","2","3","4","5","6","7","8","9");
         $nameWf = ltrim($nameX, '0123456789');
-        //$nameWd = str_replace($chiffres, "X", $nameWf);
         $newName = strtoupper(str_replace($chiffres, 'X', $nameWf));
         $chaine = $idProject . substr($newName, 0, 8);
         $pathcode = str_pad($chaine, 12, "0", STR_PAD_LEFT);
