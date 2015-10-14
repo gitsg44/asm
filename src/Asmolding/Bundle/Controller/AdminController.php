@@ -8,23 +8,12 @@
 
 namespace Asmolding\Bundle\Controller;
 
-use Asmolding\Bundle\Entity\Company;
-use Asmolding\Bundle\Entity\CompanyRepository;
+
 use Asmolding\Bundle\Entity\Contact;
 use Asmolding\Bundle\Form\Type\ChangePasswordType;
-use Asmolding\Bundle\Form\Type\FormCompanyType;
 use Asmolding\Bundle\Form\Type\FormContactType;
-use Asmolding\Bundle\Form\Type\FormSearchType;
-use DateTime;
-use Swift_Image;
-use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Description of AdminController
