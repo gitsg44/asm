@@ -38,7 +38,9 @@ class ClientController extends Controller{
         
         // Récupération des infos du contact
         $contact = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Contact')->find($id);
-        
+        if($contact){
+            $company = $contact->getCompany();
+        }
         //creation du formulaire contact
         $form = $this->createForm(new FormContactType, $contact);
        
@@ -56,7 +58,7 @@ class ClientController extends Controller{
         if($form->isValid()){
             
              if ($form->has('modifier')) {
-                $this->editProfileAction($id, $form);
+                $this->editProfileAction($id, $company, $form);
              }
             
             //Retour vers la vue profil
@@ -70,13 +72,14 @@ class ClientController extends Controller{
             return $this->render($template,array('form'=>$formView,'contact'=>$contact));
     }
     
-    public function editProfileAction($id, $form){
+    public function editProfileAction($id, $company, $form){
     
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AsmoldingBundle:Contact');
         
         $contact = $repository->find($id);
       
+        $contact->setCompany($company);
         $contact->setFirstname(str_replace(' ', '-', ucwords(str_replace('-',' ', $form->get('firstname')->getData()))));
         $contact->setName(mb_strtoupper($form->get('name')->getData()));
         $contact->setUsername($form->get('username')->getData());
