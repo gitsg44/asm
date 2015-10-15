@@ -128,11 +128,9 @@ class MoldController extends Controller {
         $molds = $em->getRepository('AsmoldingBundle:Mold')->findByProject($project);
         
         foreach ($molds as $mold){
-            
-           $mold->setArchived(true);
-           $em->flush();
+           $mold->setArchived(true); 
         }
-        
+            $em->flush();
         //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
             return $response;
@@ -146,12 +144,10 @@ class MoldController extends Controller {
 
         $molds = $em->getRepository('AsmoldingBundle:Mold')->findByProject($project);
         
-        foreach ($molds as $mold){
-            
-           $mold->setArchived(false);
-           $em->flush();
+        foreach ($molds as $mold){  
+           $mold->setArchived(false); 
         }
-        
+        $em->flush();
         //Retour vers la vue liste des affaires
             $response = $this->redirect($this->generateUrl('asmolding_admin_listMolds', array('projectId' => $projectId)));
             return $response;

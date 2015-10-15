@@ -37,7 +37,7 @@ class CompanyController extends Controller{
         
         // Si l'id renseigné dans la requête est différent de 0, récupération de la company pour modification
         if($id !=0){
-            $company = $em = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Company')->find($id);
+            $company = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Company')->find($id);
         }
         if(!$company){
                 throw new HttpException(404, 'Ce client n\'existe pas');

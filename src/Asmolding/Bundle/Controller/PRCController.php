@@ -35,7 +35,7 @@ class PRCController extends Controller{
 
         // Si l'id renseigné dans la requête est différent de 0, récupération de l'affaire pour modification
         if($id !=0){
-            $prc = $em = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:ProjetRelContact')->find($id);
+            $prc = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:ProjetRelContact')->find($id);
         }
         if(!$prc){
                 throw new HttpException(404, 'Ce contact n\'existe pas');

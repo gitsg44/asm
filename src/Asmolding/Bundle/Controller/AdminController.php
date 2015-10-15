@@ -37,7 +37,7 @@ class AdminController extends Controller{
         $contact = new Contact();
         
         // Récupération des infos du contact
-        $contact = $em = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Contact')->find($id);
+        $contact = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Contact')->find($id);
         if($contact){
             $company = $contact->getCompany();
         }

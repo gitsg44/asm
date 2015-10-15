@@ -12,6 +12,8 @@ use Asmolding\Bundle\Entity\CompanyRepository;
 use Asmolding\Bundle\Entity\Contact;
 use Asmolding\Bundle\Form\Type\FormContactType;
 use Asmolding\Bundle\Form\Type\FormSearchType;
+use Swift_Image;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +39,7 @@ class ContactController extends Controller{
         
         // Si l'id renseigné dans la requête est différent de 0, récupération du contact pour modification
         if($id !=0){
-            $contact = $em = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Contact')->find($id);
+            $contact = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Contact')->find($id);
         }
         if(!$contact){
                 throw new HttpException(404, 'Ce contact n\'existe pas');

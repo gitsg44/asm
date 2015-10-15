@@ -40,7 +40,7 @@ class ProjectController extends Controller{
         $asm = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Company')->find(1);
         // Si l'id renseigné dans la requête est différent de 0, récupération du project pour modification
         if($id !=0){
-            $project = $em = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Project')->find($id);
+            $project = $this->getDoctrine()->getManager()->getRepository('AsmoldingBundle:Project')->find($id);
         }
         if(!$project){
                 throw new HttpException(404, 'Ce projet n\'existe pas');
