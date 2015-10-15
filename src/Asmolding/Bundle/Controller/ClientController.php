@@ -45,6 +45,7 @@ class ClientController extends Controller{
         $form = $this->createForm(new FormContactType, $contact);
        
         $form ->remove('level');
+        $form ->remove('cp');
         
         if($mode == 'modifier'){
             $form->add('modifier', 'submit'); 
