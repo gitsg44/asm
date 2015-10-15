@@ -22,7 +22,8 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "coresphere/console-bundle": "0.1.0"
+        "coresphere/console-bundle": "0.1.0",
+        "doctrine/doctrine-migrations-bundle": "^1.0"
 
     },
     "scripts": {
