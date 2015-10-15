@@ -94,7 +94,7 @@ class GeneralPlanController extends Controller{
         
         //creation du formulaire GeneralPlan
         $form = $this->createForm(new FormGeneralPlanType, $generalPlan);
-        $builder = $this->createFormBuilder($mold);
+        //$builder = $this->createFormBuilder($mold);
         
         $form->add('milestone', 'entity', array(
           'class' => 'AsmoldingBundle:Milestone',
@@ -109,21 +109,51 @@ class GeneralPlanController extends Controller{
         $form->add('test', 'hidden');
         $form->get('test')->setData('all');
         
-        $builder->add('solution', 'text');
-        $builder->get('solution')->setData($solution);
+        //$builder->add('solution', 'text');
+        //$builder->get('solution')->setData($solution);
         
-        $form2 = $builder->getForm();
+        //$form2 = $builder->getForm();
             
         //Récupérer les données du formulaire dans la requête HTTP
         $form->handleRequest($request);
-        $form2->handleRequest($request);
+        //$form2->handleRequest($request);
         
         //Valider les données récupérées
-        if($form->isValid() && $form2->isValid()){
+        if($form->isValid() /*&& $form2->isValid()*/){
             
             if ($form->has('valider')) {
-                //Appel de la méthode d'ajout
-                $this->addGeneralPlanAction($project, $mold, $form);
+                
+                $generalPlan = new GeneralPlan(); 
+                $user = $this->getUser();
+
+                $prevWeek = $form->get('pweek')->getData();    
+                $prevDay = $form->get('pday')->getData();
+                $prevYear = $form->get('pyear')->getData();
+                if($prevWeek && $prevDay && $prevYear){
+                    $previsionnel = new \DateTime($this->findDateAction($prevWeek, $prevDay, $prevYear));       
+                }else {
+                    $previsionnel = null;
+                }
+
+                $realWeek = $form->get('rweek')->getData();    
+                $realDay = $form->get('rday')->getData();
+                $realYear = $form->get('ryear')->getData();
+                if($realWeek && $realDay && $realYear){
+                    $reel = new \DateTime($this->findDateAction($realWeek, $realDay, $realYear));
+                }else {
+                    $reel = null;
+                }
+
+                $generalPlan->setProject($project);
+                $generalPlan->setMold($mold);
+                $generalPlan->setMilestone($form->get('milestone')->getData());
+                $generalPlan->setPrevisionnel($previsionnel);
+                $generalPlan->setReel($reel);
+                $generalPlan->setUpdateTime(new DateTime);
+                $generalPlan->setUpdateUser($user);
+
+                $em->persist($generalPlan);                
+                $em->flush();
             }
             
             /*
@@ -137,11 +167,11 @@ class GeneralPlanController extends Controller{
         } 
             //envoi à la vue 
             $formView = $form->createView();
-            $formView2 = $form2->createView();
+            //$formView2 = $form2->createView();
             $template= 'AsmoldingBundle:GlobalPlan:globalPlan.html.twig';
-            return $this->render($template,array('form'=>$formView, 'form2'=>$formView2,'generalPlan'=>$generalPlan));  
+            return $this->render($template,array('form'=>$formView, /*'form2'=>$formView2,*/'generalPlan'=>$generalPlan));  
     }
-    
+    /*
     public function addGeneralPlanAction($project, $mold, $form){
         
         $em = $this->getDoctrine()->getManager();
@@ -177,13 +207,12 @@ class GeneralPlanController extends Controller{
 
         $em->persist($generalPlan);                
         $em->flush();
-    }
+    }*/
 
     
     public function editGeneralPlanAction($moldId, $milestoneId, $type, Request $request) {
         
         $em = $this->getDoctrine()->getManager();
-       
         $todayYear = date('Y');
         
         $mold = $em->getRepository('AsmoldingBundle:Mold')->find($moldId);
@@ -206,18 +235,10 @@ class GeneralPlanController extends Controller{
         $prev = $generalPlan->getPrevisionnel();
         $real = $generalPlan->getReel();
         
-        if($prev !== null){
-            $prevDate = $prev->format('W.N.o');
-        }
-        else{
-            $prevDate = '1.1' . '.' . $todayYear;
-        }
-        if($real !== null){
-            $realDate = $real->format('W.N.o');
-        }
-         else{
-            $realDate = '1.1' . '.' . $todayYear;
-        }
+        if($prev !== null){$prevDate = $prev->format('W.N.o');}
+        else{$prevDate = '1.1' . '.' . $todayYear;}
+        if($real !== null){$realDate = $real->format('W.N.o');}
+        else{$realDate = '1.1' . '.' . $todayYear;}
         
         
         if($type == 'previsionnel'){
@@ -225,29 +246,24 @@ class GeneralPlanController extends Controller{
                 $pweek = substr($prevDate, 0, 1);
                 $pday = substr($prevDate, 2, 1);
                 $pyear = substr($prevDate, 4, 4);
-            }
-            else{
+            }else{
                 $pweek = substr($prevDate, 0, 2);
                 $pday = substr($prevDate, 3, 1);
                 $pyear = substr($prevDate, 5, 4);
-            }  
-            
-        }
-        else{
+            }              
+        }else{
             if(strlen(explode('.', $realDate)[0]) == 1){
                 $rweek = substr($realDate, 0, 1);
                 $rday = substr($realDate, 2, 1);
                 $ryear = substr($realDate, 4, 4);
-            }
-            else{
+            }else{
                 $rweek = substr($realDate, 0, 2);
                 $rday = substr($realDate, 3, 1);
                 $ryear = substr($realDate, 5, 4);
             }
             
         }
-        
-            
+
             $form->add('valider', 'submit'); // sinon on crée un bouton Modifier
             $form->add('test', 'hidden');
             $form->get('test')->setData($type);
@@ -261,8 +277,7 @@ class GeneralPlanController extends Controller{
                $form->get('pweek')->setData($pweek);
                $form->get('pday')->setData($pday);
                $form->get('pyear')->setData($pyear);
-            }
-            else{
+            }else{
                $form->remove('pweek');
                $form->remove('pday');
                $form->remove('pyear');
@@ -477,7 +492,7 @@ class GeneralPlanController extends Controller{
     
     // UTIL
     
-    function findDateActionAction($semaine, $jour, $annee)
+    function findDateAction($semaine, $jour, $annee)
     {
         
         if(strftime("%V",mktime(0,0,0,01,01,$annee)) == 1 || $semaine == 1 && strftime("%V",mktime(0,0,0,01,01,$annee)) != 1 && date("L", mktime(0,0,0,1,1,$annee+1))== 0){
