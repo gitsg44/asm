@@ -83,7 +83,6 @@ class GeneralPlanController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $mold = $em->getRepository('AsmoldingBundle:Mold')->find($id);
         $project = $mold->getProject();
-        $solution = $mold->getSolution();
         if(strlen($mold->getNum()) == 11){
             $das = substr($mold->getNum(), 4, 3);
         }else{
@@ -94,7 +93,6 @@ class GeneralPlanController extends Controller{
         
         //creation du formulaire GeneralPlan
         $form = $this->createForm(new FormGeneralPlanType, $generalPlan);
-        //$builder = $this->createFormBuilder($mold);
         
         $form->add('milestone', 'entity', array(
           'class' => 'AsmoldingBundle:Milestone',
@@ -109,14 +107,9 @@ class GeneralPlanController extends Controller{
         $form->add('test', 'hidden');
         $form->get('test')->setData('all');
         
-        //$builder->add('solution', 'text');
-        //$builder->get('solution')->setData($solution);
-        
-        //$form2 = $builder->getForm();
             
         //Récupérer les données du formulaire dans la requête HTTP
         $form->handleRequest($request);
-        //$form2->handleRequest($request);
         
         //Valider les données récupérées
         if($form->isValid() /*&& $form2->isValid()*/){
@@ -159,17 +152,13 @@ class GeneralPlanController extends Controller{
             /*
             //Retour vers la vue liste des projets
             $response = $this->redirect($this->generateUrl('asmolding_admin_generalPlan', array('generalPlan' => $generalPlan)));
-                    //$this->forward('AsmoldingBundle:Admin:listProjects');
-            //return null;
             return $response;
-            
              */
         } 
             //envoi à la vue 
             $formView = $form->createView();
-            //$formView2 = $form2->createView();
             $template= 'AsmoldingBundle:GlobalPlan:globalPlan.html.twig';
-            return $this->render($template,array('form'=>$formView, /*'form2'=>$formView2,*/'generalPlan'=>$generalPlan));  
+            return $this->render($template,array('form'=>$formView, 'generalPlan'=>$generalPlan));  
     }
     
     public function editGeneralPlanAction($moldId, $milestoneId, $type, Request $request) {
