@@ -6,15 +6,17 @@
     <div>
         <br /><br />
         <a class="index" href="{{ path('asmolding_client_listProjects') }}">
-        <img src="{{ asset('images/Project_icon_64.png') }}" /> Voir vos projets
+            <img src="{{ asset('images/Project_icon_64.png') }}" /> Voir vos projets
         <br />
         {% if is_granted('ROLE_PARTENAIRE') %}
-            <img src="{{ asset('images/FTP_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_client_homepage') }}"> Envoyer ou recevoir des documents</a>
+        <a class="index" href="{{ path('asmolding_client_homepage') }}">
+            <img src="{{ asset('images/FTP_icon_64.png') }}" /> Envoyer ou recevoir des documents
+        </a>
             <br />
         {% endif %}
-        <img src="{{ asset('images/Profile_icon_64.png') }}" />
-        <a class="index" href="{{ path('asmolding_client_viewProfile', {'id': app.user.id}) }}"> Profil</a>
+        <a class="index" href="{{ path('asmolding_client_viewProfile', {'id': app.user.id}) }}">
+            <img src="{{ asset('images/Profile_icon_64.png') }}" /> Profil
+        </a>
         <br />
     </div>
 </div>

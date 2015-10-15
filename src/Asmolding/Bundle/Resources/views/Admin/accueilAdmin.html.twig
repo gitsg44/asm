@@ -9,34 +9,41 @@
     {% endif %}
     <div>
         <br /><br />
-        {% if is_granted('ROLE_ADMIN') %}
-            <img src="{{ asset('images/Customer_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_listCompanies') }}"> Gérer les clients</a>
-            <br />
-            <a class="index" href="{{ path('asmolding_admin_listContacts') }}">
-            <img src="{{ asset('images/Users_icon_64.png') }}" /> Gérer les utilisateurs
+        {% if is_granted('ROLE_ADMIN') %}         
+            <a class="index" href="{{ path('asmolding_admin_listCompanies') }}"> 
+               <img src="{{ asset('images/Customer_icon_64.png') }}" /> Gérer les clients
             </a>
             <br />
-            <img src="{{ asset('images/Project_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_listProjects') }}"> Gérer les projets/affaires</a>
+            <a class="index" href="{{ path('asmolding_admin_listContacts') }}">
+                <img src="{{ asset('images/Users_icon_64.png') }}" /> Gérer les utilisateurs
+            </a>
+            <br />
+            <a class="index" href="{{ path('asmolding_admin_listProjects') }}"> 
+                <img src="{{ asset('images/Project_icon_64.png') }}" /> Gérer les projets/affaires
+            </a>
             <br />
         {% elseif is_granted('ROLE_CHEFPROJET') %}
-            <img src="{{ asset('images/Calendar_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_generalPlan_CP') }}"> Gérer <b>votre</b> planning général (vos clients / vos projets)</a>
+            <a class="index" href="{{ path('asmolding_admin_generalPlan_CP') }}">
+                <img src="{{ asset('images/Calendar_icon_64.png') }}" /> Gérer <b>votre</b> planning général (vos clients / vos projets)
+            </a>
             <br />
-            <img src="{{ asset('images/Planning_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_filtering') }}"> Filtrer et gérer <b>votre</b> planning général</a>
+            <a class="index" href="{{ path('asmolding_admin_filtering') }}">
+                <img src="{{ asset('images/Planning_icon_64.png') }}" />Filtrer et gérer <b>votre</b> planning général
+            </a>
             <br />
         {% endif %}
-        <img src="{{ asset('images/Calendar_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_generalPlan') }}"> Gérer le planning général (tous les clients / tous les projets)</a>
-            <br />
-        <img src="{{ asset('images/Planning_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_filtering') }}"> Filtrer et gérer le planning général</a>
-            <br />
-        <img src="{{ asset('images/Profile_icon_64.png') }}" />
-            <a class="index" href="{{ path('asmolding_admin_viewProfile', {'id': app.user.id}) }}"> Gérer votre Profil</a>
-            <br />
+         <a class="index" href="{{ path('asmolding_admin_generalPlan') }}">
+             <img src="{{ asset('images/Calendar_icon_64.png') }}" /> Gérer le planning général (tous les clients / tous les projets)
+         </a>
+         <br />
+        <a class="index" href="{{ path('asmolding_admin_filtering') }}">
+            <img src="{{ asset('images/Planning_icon_64.png') }}" /> Filtrer et gérer le planning général
+        </a>
+        <br />
+        <a class="index" href="{{ path('asmolding_admin_viewProfile', {'id': app.user.id}) }}">
+            <img src="{{ asset('images/Profile_icon_64.png') }}" /> Gérer votre Profil
+        </a>
+        <br />
     </div>
 </div>
 
