@@ -2,11 +2,13 @@
 {% block title %}{{parent()}} - Espace Administrateur{% endblock %}
 {% block body %}
 <div class="container">
-    {% if is_granted('ROLE_ADMIN') %}
-        Bonjour {{ name }}, et bienvenue dans votre espace ADMINISTRATEUR
-    {% elseif is_granted('ROLE_CHEFPROJET') %}
-        Bonjour {{ name }}, et bienvenue dans votre espace CHEF DE PROJETS
-    {% endif %}
+    <div class="bonjour">
+        {% if is_granted('ROLE_ADMIN') %}
+            Bonjour {{ name }}, et bienvenue dans votre espace ADMINISTRATEUR
+        {% elseif is_granted('ROLE_CHEFPROJET') %}
+            Bonjour {{ name }}, et bienvenue dans votre espace CHEF DE PROJETS
+        {% endif %}
+    </div>
     <div>
         <br /><br />
         {% if is_granted('ROLE_ADMIN') %}         

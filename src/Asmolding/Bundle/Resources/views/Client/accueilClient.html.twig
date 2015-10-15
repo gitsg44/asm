@@ -2,7 +2,9 @@
 {% block title %}{{parent()}} - Espace Client{% endblock %}
 {% block body %}
 <div class="container">
-    Bonjour {{ name }}, et bienvenue dans votre espace CLIENT
+    <div class="bonjour">
+        Bonjour {{ name }}, et bienvenue dans votre espace CLIENT
+    </div>
     <div>
         <br /><br />
         <a class="index" href="{{ path('asmolding_client_listProjects') }}">

@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         {#<link rel="icon" href="{{ asset('images/logo_asm.png') }}"/>#}
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset ('./favicon-32x32.png') }}">
+        <link rel="icon" type="image/ico" sizes="16x16" href="{{ asset ('./favicon.ico') }}">
         <title>{% block title %}ASMOLDING{% endblock %}</title>
 
         <!-- Bootstrap core CSS -->
@@ -50,7 +50,7 @@
                                 {% else %}
                                     {{ path('asmolding_login') }}
                                 {% endif %}">
-                    <img alt="Brand" class="pull-left" src="{{ asset('images/logo_asm.png') }}"/>
+                    <img alt="Brand" class="pull-left" width="110" height="21" src="{{ asset('images/logo_asm_noir.png') }}"/>
                 </a>
             </div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
