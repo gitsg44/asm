@@ -171,44 +171,6 @@ class GeneralPlanController extends Controller{
             $template= 'AsmoldingBundle:GlobalPlan:globalPlan.html.twig';
             return $this->render($template,array('form'=>$formView, /*'form2'=>$formView2,*/'generalPlan'=>$generalPlan));  
     }
-    /*
-    public function addGeneralPlanAction($project, $mold, $form){
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        $generalPlan = new GeneralPlan(); 
-        $user = $this->getUser();
-        
-        $prevWeek = $form->get('pweek')->getData();    
-        $prevDay = $form->get('pday')->getData();
-        $prevYear = $form->get('pyear')->getData();
-        if($prevWeek && $prevDay && $prevYear){
-            $previsionnel = new \DateTime($this->findDateAction($prevWeek, $prevDay, $prevYear));       
-        }else {
-            $previsionnel = null;
-        }
-        
-        $realWeek = $form->get('rweek')->getData();    
-        $realDay = $form->get('rday')->getData();
-        $realYear = $form->get('ryear')->getData();
-        if($realWeek && $realDay && $realYear){
-            $reel = new \DateTime($this->findDateAction($realWeek, $realDay, $realYear));
-        }else {
-            $reel = null;
-        }
-        
-        $generalPlan->setProject($project);
-        $generalPlan->setMold($mold);
-        $generalPlan->setMilestone($form->get('milestone')->getData());
-        $generalPlan->setPrevisionnel($previsionnel);
-        $generalPlan->setReel($reel);
-        $generalPlan->setUpdateTime(new DateTime);
-        $generalPlan->setUpdateUser($user);
-
-        $em->persist($generalPlan);                
-        $em->flush();
-    }*/
-
     
     public function editGeneralPlanAction($moldId, $milestoneId, $type, Request $request) {
         
